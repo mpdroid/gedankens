@@ -1,9 +1,22 @@
-import * as THREE from './node_modules/three/build/three.min.js';
-class Bob extends THREE.Object3D {
+import {
+  Vector3,
+  SphereBufferGeometry,
+  MeshPhongMaterial,Mesh,Vector2, DoubleSide,
+  LatheBufferGeometry,
+  CylinderBufferGeometry,
+  SkinnedMesh,
+  Skeleton,
+  Bone,
+  Object3D,
+  Scene,
+  Uint16BufferAttribute,
+  Float32BufferAttribute
+ }  from './node_modules/three/build/three.module.js';
+class Bob extends Object3D {
     constructor(scaleFactor=0.15, color= 0xff6347) {
         super();
         this.color = color;
-        const scale = new THREE.Vector3(1, 1, 1);
+        const scale = new Vector3(1, 1, 1);
         scale.x *= -1;
         this.head = createHead.apply(this);
         this.head.position.z = 0;
@@ -24,7 +37,7 @@ class Bob extends THREE.Object3D {
         super.add(this.rightArm);
 
         this.torso = createTorso.apply(this);
-        const torsoScale = new THREE.Vector3(1.5, .76, 2.5);
+        const torsoScale = new Vector3(1.5, .76, 2.5);
         this.torso.scale.multiply(torsoScale);
         this.torso.position.z = 0;
         this.torso.position.y = 14;
@@ -34,7 +47,7 @@ class Bob extends THREE.Object3D {
         super.add(this.torso);
 
         this.belt = createBelt.apply(this);
-        const beltScale = new THREE.Vector3(0.5, 1.2, 0.7);
+        const beltScale = new Vector3(0.5, 1.2, 0.7);
         this.belt.scale.multiply(beltScale);
         this.belt.position.z = 0;
         this.belt.position.y = 16;
@@ -82,15 +95,15 @@ class Bob extends THREE.Object3D {
 }
 
 function createHead() {
-    const geometry = new THREE.SphereBufferGeometry(10, 32, 32);
-    const material = new THREE.MeshPhongMaterial({
+    const geometry = new SphereBufferGeometry(10, 32, 32);
+    const material = new MeshPhongMaterial({
         skinning: true,
         color: this.color,
         // emissive: 0x072534,
-        side: THREE.DoubleSide,
+        side: DoubleSide,
     });
-    const sphere = new THREE.Mesh(geometry, material);
-    const scale = new THREE.Vector3(.7, 1, .7);
+    const sphere = new Mesh(geometry, material);
+    const scale = new Vector3(.7, 1, .7);
     scale.x *= -1;
     sphere.scale.multiply(scale);
     return sphere;
@@ -98,53 +111,53 @@ function createHead() {
 }
 function createTorso() {
     const points = [];
-    points.push(new THREE.Vector2(0, 0));
-    points.push(new THREE.Vector2(7, 10));
-    points.push(new THREE.Vector2(10, 80));
-    points.push(new THREE.Vector2(8, 90));
-    points.push(new THREE.Vector2(7, 95));
-    points.push(new THREE.Vector2(0, 100));
-    const geometry = new THREE.LatheBufferGeometry(points);
-    const material = new THREE.MeshPhongMaterial({
+    points.push(new Vector2(0, 0));
+    points.push(new Vector2(7, 10));
+    points.push(new Vector2(10, 80));
+    points.push(new Vector2(8, 90));
+    points.push(new Vector2(7, 95));
+    points.push(new Vector2(0, 100));
+    const geometry = new LatheBufferGeometry(points);
+    const material = new MeshPhongMaterial({
         skinning: true,
         color: this.color,
         // emissive: 0x072534,
-        side: THREE.DoubleSide,
+        side: DoubleSide,
     });
-    const lathe = new THREE.Mesh(geometry, material);
+    const lathe = new Mesh(geometry, material);
     return lathe;
 }
 
 function createBelt() {
-    const geometry = new THREE.CylinderBufferGeometry(30,30,20,32);
-    const material = new THREE.MeshPhongMaterial({
+    const geometry = new CylinderBufferGeometry(30,30,20,32);
+    const material = new MeshPhongMaterial({
         skinning: true,
         color: this.color,
         // emissive: 0x072534,
-        side: THREE.DoubleSide,
+        side: DoubleSide,
     });
-    const lathe = new THREE.Mesh(geometry, material);
+    const lathe = new Mesh(geometry, material);
     return lathe;
 }
 function createArm() {
     const points = [];
     // const n = 20;
     // for ( let i = 0; i < n; i ++ ) {
-    //     points.push( new THREE.Vector2( (Math.sin( i * 0.2 ) * 10 + 5), (( i - n / 2 ) * 2)) );
+    //     points.push( new Vector2( (Math.sin( i * 0.2 ) * 10 + 5), (( i - n / 2 ) * 2)) );
     // }
     for (let i = 0; i < 8; i++) {
-        points.push(new THREE.Vector2(Math.sqrt(64 - Math.pow((i - 8), 2)), i));
-        // points.push( new THREE.Vector2( i^2, i ));
+        points.push(new Vector2(Math.sqrt(64 - Math.pow((i - 8), 2)), i));
+        // points.push( new Vector2( i^2, i ));
     }
-    // points.push(new THREE.Vector2( 0, 0));
-    points.push(new THREE.Vector2(8, 10));
-    points.push(new THREE.Vector2(8, 42));
-    points.push(new THREE.Vector2(6, 90));
+    // points.push(new Vector2( 0, 0));
+    points.push(new Vector2(8, 10));
+    points.push(new Vector2(8, 42));
+    points.push(new Vector2(6, 90));
     for (let i = 5; i >= 0; i--) {
-        points.push(new THREE.Vector2(Math.sqrt(36 - Math.pow((i - 6), 2)), 96 - i));
-        // points.push( new THREE.Vector2( i^2, i ));
+        points.push(new Vector2(Math.sqrt(36 - Math.pow((i - 6), 2)), 96 - i));
+        // points.push( new Vector2( i^2, i ));
     }
-    const geometry = new THREE.LatheBufferGeometry(points);
+    const geometry = new LatheBufferGeometry(points);
     const segmentHeight = 33;
     const segmentCount = 3;
     const height = segmentHeight * segmentCount;
@@ -156,11 +169,11 @@ function createArm() {
         height: height,
         halfHeight: halfHeight
     };
-    const material = new THREE.MeshPhongMaterial({
+    const material = new MeshPhongMaterial({
         skinning: true,
         color: this.color,
         // emissive: 0x072534,
-        side: THREE.DoubleSide,
+        side: DoubleSide,
     });
 
 
@@ -170,7 +183,7 @@ function createArm() {
     const position = geometry.attributes.position;
     for (let i = 0; i < position.count; i++) {
 
-        const vertex = new THREE.Vector3();
+        const vertex = new Vector3();
         vertex.fromBufferAttribute(position, i);
 
         const y = (vertex.y + sizing.halfHeight);
@@ -185,13 +198,13 @@ function createArm() {
     }
 
 
-    geometry.setAttribute('skinIndex', new THREE.Uint16BufferAttribute(skinIndices, 4));
-    geometry.setAttribute('skinWeight', new THREE.Float32BufferAttribute(skinWeights, 4));
+    geometry.setAttribute('skinIndex', new Uint16BufferAttribute(skinIndices, 4));
+    geometry.setAttribute('skinWeight', new Float32BufferAttribute(skinWeights, 4));
 
     const bones = createBones(sizing);
 
-    const lathe = new THREE.SkinnedMesh(geometry, material);
-    const skeleton = new THREE.Skeleton(bones);
+    const lathe = new SkinnedMesh(geometry, material);
+    const skeleton = new Skeleton(bones);
 
     lathe.add(bones[0]);
     lathe.bind(skeleton);
@@ -201,16 +214,16 @@ function createArm() {
 
 function createLeg() {
     const points = [];
-    points.push(new THREE.Vector2( 0, 0));
-    points.push(new THREE.Vector2( 6, 5));
-    points.push(new THREE.Vector2(8, 10));
-    points.push(new THREE.Vector2(8, 40));
-    points.push(new THREE.Vector2(8, 50));
-    points.push(new THREE.Vector2(5, 90));
+    points.push(new Vector2( 0, 0));
+    points.push(new Vector2( 6, 5));
+    points.push(new Vector2(8, 10));
+    points.push(new Vector2(8, 40));
+    points.push(new Vector2(8, 50));
+    points.push(new Vector2(5, 90));
     for (let i = 4; i >= 0; i--) {
-        points.push(new THREE.Vector2(Math.sqrt(25 - Math.pow((i - 5), 2)), 95 - i));
+        points.push(new Vector2(Math.sqrt(25 - Math.pow((i - 5), 2)), 95 - i));
     }
-    const geometry = new THREE.LatheBufferGeometry(points);
+    const geometry = new LatheBufferGeometry(points);
     const segmentHeight = 48;
     const segmentCount = 2;
     const height = segmentHeight * segmentCount;
@@ -222,11 +235,11 @@ function createLeg() {
         height: height,
         halfHeight: halfHeight
     };
-    const material = new THREE.MeshPhongMaterial({
+    const material = new MeshPhongMaterial({
         skinning: true,
         color: this.color,
         // emissive: 0x072534,
-        side: THREE.DoubleSide,
+        side: DoubleSide,
     });
 
 
@@ -236,7 +249,7 @@ function createLeg() {
     const position = geometry.attributes.position;
     for (let i = 0; i < position.count; i++) {
 
-        const vertex = new THREE.Vector3();
+        const vertex = new Vector3();
         vertex.fromBufferAttribute(position, i);
 
         const y = (vertex.y + sizing.halfHeight);
@@ -251,13 +264,13 @@ function createLeg() {
     }
 
 
-    geometry.setAttribute('skinIndex', new THREE.Uint16BufferAttribute(skinIndices, 4));
-    geometry.setAttribute('skinWeight', new THREE.Float32BufferAttribute(skinWeights, 4));
+    geometry.setAttribute('skinIndex', new Uint16BufferAttribute(skinIndices, 4));
+    geometry.setAttribute('skinWeight', new Float32BufferAttribute(skinWeights, 4));
 
     const bones = createBones(sizing);
 
-    const lathe = new THREE.SkinnedMesh(geometry, material);
-    const skeleton = new THREE.Skeleton(bones);
+    const lathe = new SkinnedMesh(geometry, material);
+    const skeleton = new Skeleton(bones);
 
     lathe.add(bones[0]);
     lathe.bind(skeleton);
@@ -270,12 +283,12 @@ function createBones(sizing) {
     const bones = [];
 
 
-    let prevBone = new THREE.Bone();
+    let prevBone = new Bone();
     bones.push(prevBone);
     prevBone.position.y = -sizing.halfHeight;
     for (let i = 0; i < sizing.segmentCount; i++) {
 
-        const bone = new THREE.Bone();
+        const bone = new Bone();
         bone.position.y = sizing.segmentHeight;
         bones.push(bone);
         prevBone.add(bone);

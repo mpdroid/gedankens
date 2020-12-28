@@ -1,5 +1,5 @@
 /* Tests Bob's walking skills */
-import * as THREE from './node_modules/three/build/three.min.js';
+import * as THREE from './node_modules/three/build/three.module.js';
 import {Bob} from './bob.js';
 
 
