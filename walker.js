@@ -1,5 +1,5 @@
 /* Tests Bob's walking skills */
-import * as THREE from './node_modules/three/build/three.module.js';
+import * as THREE from './node_modules/three/build/three.min.js';
 import {Bob} from './bob.js';
 
 
@@ -106,6 +106,7 @@ function render() {
 }
 
 
-initScene();
-render();
+document.body.style.visibility = 'visible';
+// initScene();
+// render();
 
