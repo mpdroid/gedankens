@@ -1,6 +1,6 @@
 
 /* Demonstrates that moving objects appear shorter */
-import * as THREE from './node_modules/three/build/three.module.js';
+import {Vector3} from './node_modules/three/build/three.module.js';
 import * as GD from './gedanken.js';
 import { begin, narrate } from './common.js';
 
@@ -52,9 +52,9 @@ class LengthContraction extends GD.Gedanken {
     if (this.crossingEndedInTrainView()) {
       this.trainFrameInTrainView.watch.ticking = false;
       this.trainFrameInTrainView.watch.setLabel('t\' = \u03B3t = '+this.trainFrameInTrainView.watch.ticks + ' ticks', this.font);
-      this.trainFrameInTrainView.addDoubleArrow(new THREE.Vector3(0, -.1, 0),
-      new THREE.Vector3(0, -0.1, -GD.TRAIN_LENGTH / 2),
-      new THREE.Vector3(0, -0.1, GD.TRAIN_LENGTH/2),
+      this.trainFrameInTrainView.addDoubleArrow(new Vector3(0, -.1, 0),
+      new Vector3(0, -0.1, -GD.TRAIN_LENGTH / 2),
+      new Vector3(0, -0.1, GD.TRAIN_LENGTH/2),
       0xFFFF00,
       'l\' = v x ' + this.trainFrameInTrainView.watch.ticks,
       this.font,
@@ -69,9 +69,9 @@ class LengthContraction extends GD.Gedanken {
     if (this.crossingEndedInPlatformView()) {
       this.platformFrameInPlatformView.watch.ticking = false;
       this.platformFrameInPlatformView.watch.setLabel('t = '+this.platformFrameInPlatformView.watch.ticks + ' ticks', this.font);
-      this.trainFrameInPlatformView.addDoubleArrow(new THREE.Vector3(0, -.1, 0),
-      new THREE.Vector3(0, -0.1, -GD.TRAIN_LENGTH / this.gamma / 2),
-      new THREE.Vector3(0, -0.1, GD.TRAIN_LENGTH/ this.gamma/2),
+      this.trainFrameInPlatformView.addDoubleArrow(new Vector3(0, -.1, 0),
+      new Vector3(0, -0.1, -GD.TRAIN_LENGTH / this.gamma / 2),
+      new Vector3(0, -0.1, GD.TRAIN_LENGTH/ this.gamma/2),
       0xFFFF00,
       'l = v x ' + this.platformFrameInPlatformView.watch.ticks,
       this.font,

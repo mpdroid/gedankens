@@ -1,4 +1,22 @@
-import * as THREE from './node_modules/three/build/three.module.js';
+import {Scene, PerspectiveCamera,
+  WebGLRenderer,
+  DirectionalLight,SpotLight,AmbientLight,
+  Vector3,
+  Mesh,
+  PlaneBufferGeometry,BufferGeometry,ShapeBufferGeometry,BoxBufferGeometry,
+  CylinderBufferGeometry, RingGeometry,
+  Quaternion,
+  GridHelper,
+  ShadowMaterial,
+  Clock,
+  Line,
+  LineBasicMaterial,
+  Object3D,
+  MeshPhongMaterial,
+  DoubleSide,FrontSide, BackSide,
+  MeshBasicMaterial,
+  Color,
+}  from './node_modules/three/build/three.module.js';
 import { Bob } from './bob.js';
 import { Lightning, LightBubble, LightRay, Arrow, DoubleArrow, ParticleCloud, Arc } from './lightning.js';
 
@@ -7,7 +25,7 @@ export const PLATFORM_LENGTH = 1;
 export const EPSILON = 0.001;
 export const TRAIN_COLOR = 0xABEBC6;
 export const PLATFORM_COLOR = 0xAAAAAA;
-export const PLATFORM_CENTER = new THREE.Vector3(0.06, 0, 11);
+export const PLATFORM_CENTER = new Vector3(0.06, 0, 11);
 const CAR_GAP = 0.1 / 4;
 const CAR_LENGTH = 0.9 / 5;
 
@@ -16,7 +34,7 @@ function isClose(first, second, epsilon = EPSILON) {
   return Math.abs(first - second) <= epsilon;
 }
 
-class ReferenceFrame extends THREE.Object3D {
+class ReferenceFrame extends Object3D {
   constructor(scene, position, clock, velocity, maxDistance = 2 * PLATFORM_LENGTH, name = 'frame') {
     super();
     this.clock = clock;
@@ -32,9 +50,9 @@ class ReferenceFrame extends THREE.Object3D {
     this.paths = [];
     this.timeRate = 1;
     this.currentTime = 0;
-    this.nearTarget = new THREE.Object3D();
+    this.nearTarget = new Object3D();
     this.nearTarget.position.z = 1000;
-    this.farTarget = new THREE.Object3D();
+    this.farTarget = new Object3D();
     this.spaceTimeEvents = [];
     this.maxDistance = maxDistance;
     this.name = name;
@@ -219,17 +237,17 @@ class SpaceTimeEvent {
 }
 
 
-class GedaClock extends THREE.Object3D {
+class GedaClock extends Object3D {
   constructor(color, initialAngle, totalLength, c, gamma, ticking = false, visible = true, radius = 0.003, height = 0.05) {
     super();
-    const handgeometry = new THREE.CylinderBufferGeometry(0.003, 0.003, 0.05, 32, 32, false);
+    const handgeometry = new CylinderBufferGeometry(0.003, 0.003, 0.05, 32, 32, false);
     handgeometry.translate(0, +0.025, 0);
-    const handmaterial = new THREE.MeshPhongMaterial({ color: color });
-    const hand = new THREE.Mesh(handgeometry, handmaterial);
+    const handmaterial = new MeshPhongMaterial({ color: color });
+    const hand = new Mesh(handgeometry, handmaterial);
     hand.rotation.z = 0;
 
-    const ringGeometry = new THREE.RingGeometry(.06, .065, 32);
-    const casing = new THREE.Mesh(ringGeometry, new THREE.MeshBasicMaterial({ color: color, side: THREE.DoubleSide }));
+    const ringGeometry = new RingGeometry(.06, .065, 32);
+    const casing = new Mesh(ringGeometry, new MeshBasicMaterial({ color: color, side: DoubleSide }));
     this.add(casing);
 
     this.hand = hand;
@@ -277,17 +295,17 @@ class GedaClock extends THREE.Object3D {
       this.remove(this.label);
     }
     const shapes = font.generateShapes(label, 0.03);
-    const textgeometry = new THREE.ShapeBufferGeometry(shapes);
+    const textgeometry = new ShapeBufferGeometry(shapes);
     textgeometry.computeBoundingBox();
     const xMid = - 0.5 * (textgeometry.boundingBox.max.x - textgeometry.boundingBox.min.x);
     const yMid = - 0.5 * (textgeometry.boundingBox.max.y - textgeometry.boundingBox.min.y);
     const zMid = - 0.5 * (textgeometry.boundingBox.max.z - textgeometry.boundingBox.min.z);
     textgeometry.translate(0, yMid, zMid);
-    const basic = new THREE.MeshBasicMaterial({
+    const basic = new MeshBasicMaterial({
       color: color,
-      side: THREE.DoubleSide
+      side: DoubleSide
     });
-    const text = new THREE.Mesh(textgeometry, basic);
+    const text = new Mesh(textgeometry, basic);
     text.renderOrder = -5;
     text.position.z = -0.02;
     text.position.x = - 0.10;
@@ -299,32 +317,32 @@ class GedaClock extends THREE.Object3D {
 }
 
 // Not used 
-class Signal extends THREE.Object3D {
+class Signal extends Object3D {
   constructor(z, motionDirection) {
     super();
     this.motionDirection = motionDirection;
     const forwardColor = (this.motionDirection === -1) ? 0x33FF66 : 0xFFFFFF;
     const rearColor = (this.motionDirection === -1) ? 0xFFFFFF : 0x33FF66;
-    const signalPost = new THREE.Mesh(
-      new THREE.CylinderBufferGeometry(.003, 0.003, 0.07),
-      new THREE.MeshPhongMaterial({ color: 0xCB4335, shininess: 30 })
+    const signalPost = new Mesh(
+      new CylinderBufferGeometry(.003, 0.003, 0.07),
+      new MeshPhongMaterial({ color: 0xCB4335, shininess: 30 })
     );
     signalPost.position.x = -0.10;
     signalPost.position.y = 0.035;
-    const signal = new THREE.SpotLight(0xFFFFE0, 15);
+    const signal = new SpotLight(0xFFFFE0, 15);
     signal.castShadow = true;
     signal.target.position.set(-0.08, 0.1, -this.motionDirection * 20);
     signal.angle = Math.PI / 40;
-    signal.add(new THREE.Mesh(new THREE.CircleBufferGeometry(0.01, 10),
-      new THREE.MeshBasicMaterial({ color: forwardColor, side: THREE.FrontSide })));
+    signal.add(new Mesh(new CircleBufferGeometry(0.01, 10),
+      new MeshBasicMaterial({ color: forwardColor, side: FrontSide })));
 
     signal.position.x = -0.10;
     signal.position.y = 0.08;
     signal.position.z = this.motionDirection * 0.003; //camera.position.z - 35 * .12;
     this.signal = signal;
-    const rearface = new THREE.Mesh(
-      new THREE.CircleBufferGeometry(0.01, 10),
-      new THREE.MeshPhongMaterial({ color: rearColor, side: THREE.DoubleSide })
+    const rearface = new Mesh(
+      new CircleBufferGeometry(0.01, 10),
+      new MeshPhongMaterial({ color: rearColor, side: DoubleSide })
     );
     rearface.position.x = -0.10;
     rearface.position.y = 0.08;
@@ -342,7 +360,7 @@ class Signal extends THREE.Object3D {
     const forwardColor = (this.motionDirection === -1) ? 0x33FF66 : 0xFFFFFF;
     const rearColor = (this.motionDirection === -1) ? 0xFFFFFF : 0x33FF66;
     this.signal.target.position.z = -this.motionDirection * 20;
-    this.signal.children[0].material.side = (this.motionDirection === -1) ? THREE.FrontSide : THREE.BackSide;
+    this.signal.children[0].material.side = (this.motionDirection === -1) ? FrontSide : BackSide;
   }
 }
 
@@ -358,7 +376,7 @@ function moveCamera(omega, target, motionDirection = 1) {
 }
 
 
-class Dashboard extends THREE.Object3D {
+class Dashboard extends Object3D {
   constructor(frame, camera, font) {
     super();
     this.frame = frame;
@@ -371,17 +389,17 @@ class Dashboard extends THREE.Object3D {
   }
   addLabel(label, position, color = 0xFFFF00) {
     const shapes = this.font.generateShapes(label, 0.02);
-    const textgeometry = new THREE.ShapeBufferGeometry(shapes);
+    const textgeometry = new ShapeBufferGeometry(shapes);
     textgeometry.computeBoundingBox();
     const xMid = - 0.5 * (textgeometry.boundingBox.max.x - textgeometry.boundingBox.min.x);
     const yMid = - 0.5 * (textgeometry.boundingBox.max.y - textgeometry.boundingBox.min.y);
     const zMid = - 0.5 * (textgeometry.boundingBox.max.z - textgeometry.boundingBox.min.z);
     textgeometry.translate(xMid, yMid, zMid);
-    const basic = new THREE.MeshBasicMaterial({
+    const basic = new MeshBasicMaterial({
       color: color,
-      side: THREE.DoubleSide
+      side: DoubleSide
     });
-    const text = new THREE.Mesh(textgeometry, basic);
+    const text = new Mesh(textgeometry, basic);
     text.renderOrder = -5;
     text.position.copy(position);
     this.add(text);
@@ -399,7 +417,7 @@ class Dashboard extends THREE.Object3D {
 }
 
 
-class Camera extends THREE.PerspectiveCamera {
+class Camera extends PerspectiveCamera {
 
   constructor(position, target, velocity, clock, containerId) {
     let aspect = window.innerWidth / window.innerHeight / 2;
@@ -425,17 +443,17 @@ class Camera extends THREE.PerspectiveCamera {
 
   addLabel(label, font, position, color = 0xFFFF00) {
     const shapes = font.generateShapes(label, 0.03);
-    const textgeometry = new THREE.ShapeBufferGeometry(shapes);
+    const textgeometry = new ShapeBufferGeometry(shapes);
     textgeometry.computeBoundingBox();
     const xMid = - 0.5 * (textgeometry.boundingBox.max.x - textgeometry.boundingBox.min.x);
     const yMid = - 0.5 * (textgeometry.boundingBox.max.y - textgeometry.boundingBox.min.y);
     const zMid = - 0.5 * (textgeometry.boundingBox.max.z - textgeometry.boundingBox.min.z);
     textgeometry.translate(xMid, yMid, zMid);
-    const basic = new THREE.MeshBasicMaterial({
+    const basic = new MeshBasicMaterial({
       color: color,
-      side: THREE.DoubleSide
+      side: DoubleSide
     });
-    const text = new THREE.Mesh(textgeometry, basic);
+    const text = new Mesh(textgeometry, basic);
     text.renderOrder = -5;
     text.position.copy(position);
     this.add(text);
@@ -467,13 +485,13 @@ class Gedanken {
     this.initialDistanceFactor = initialDistanceFactor;
     this.containerId = containerId;
     this.distanceInTrainLengths = distanceInTrainLengths;
-    this.matLite = new THREE.MeshPhongMaterial({
+    this.matLite = new MeshPhongMaterial({
       color: 0xffffff,
-      side: THREE.DoubleSide
+      side: DoubleSide
     });
-    this.matLiteBasic = new THREE.MeshBasicMaterial({
+    this.matLiteBasic = new MeshBasicMaterial({
       color: 0xffffff,
-      side: THREE.DoubleSide
+      side: DoubleSide
     });
     this.motionDirection = -1;
     this.NORMAL_V = v;
@@ -482,18 +500,18 @@ class Gedanken {
     this.C = this.NORMAL_C;
     this.V = this.NORMAL_V;
     this.initializeSpeeds();
-    this.trainClockInTrainView = new THREE.Clock();
-    this.platformClockInTrainView = new THREE.Clock();
-    this.trainClockInPlatformView = new THREE.Clock();
-    this.platformClockInPlatformView = new THREE.Clock();
+    this.trainClockInTrainView = new Clock();
+    this.platformClockInTrainView = new Clock();
+    this.trainClockInPlatformView = new Clock();
+    this.platformClockInPlatformView = new Clock();
     this.trainScene = this.createScene();
-    this.placeDirectionalLight(this.trainScene, new THREE.Vector3(5, 5, 13.5));
-    this.placeDirectionalLight(this.trainScene, new THREE.Vector3(-5, 5, -13.5));
+    this.placeDirectionalLight(this.trainScene, new Vector3(5, 5, 13.5));
+    this.placeDirectionalLight(this.trainScene, new Vector3(-5, 5, -13.5));
     this.trainSceneRenderer = this.createRenderer('train' + containerId);
 
     this.platformScene = this.createScene();
-    this.placeDirectionalLight(this.platformScene, new THREE.Vector3(5, 5, 13.5));
-    this.placeDirectionalLight(this.platformScene, new THREE.Vector3(-5, 5, -13.5));
+    this.placeDirectionalLight(this.platformScene, new Vector3(5, 5, 13.5));
+    this.placeDirectionalLight(this.platformScene, new Vector3(-5, 5, -13.5));
     this.platformSceneRenderer = this.createRenderer('platform' + containerId);
 
     this.infinityRailroadInTrainView = this.createRailroad(this.trainScene);
@@ -503,18 +521,18 @@ class Gedanken {
     this.maxDistanceTrainView = this.initialDistanceFactor * this.distanceInTrainLengths * TRAIN_LENGTH;
     this.trainFrameInTrainView = new ReferenceFrame(
       this.trainScene,
-      new THREE.Vector3(0, 0, 11 + this.maxDistanceTrainView),
+      new Vector3(0, 0, 11 + this.maxDistanceTrainView),
       this.trainClockInTrainView,
-      new THREE.Vector3(0, 0, -this.v),
+      new Vector3(0, 0, -this.v),
       this.maxDistanceTrainView,
       'Train Prime'
     );
     this.attachBobLabel(this.trainFrameInTrainView, "Train-Bob", 2 * Math.PI, .125, true);
     this.platformFrameInTrainView = new ReferenceFrame(
       this.trainScene,
-      new THREE.Vector3(0.06, 0, 11),
+      new Vector3(0.06, 0, 11),
       this.platformClockInTrainView,
-      new THREE.Vector3(0, 0, 0),
+      new Vector3(0, 0, 0),
       this.maxDistanceTrainView,
       'Platform Prime'
     );
@@ -522,17 +540,17 @@ class Gedanken {
     this.attachBobLabel(this.platformFrameInTrainView, "Platform-Bob", 2 * Math.PI, .10, false);
     this.trainFrameInPlatformView = new ReferenceFrame(
       this.platformScene,
-      new THREE.Vector3(0, 0, 11 + this.maxDistancePlatformView),
+      new Vector3(0, 0, 11 + this.maxDistancePlatformView),
       this.trainClockInPlatformView,
-      new THREE.Vector3(0, 0, -this.v),
+      new Vector3(0, 0, -this.v),
       this.maxDistancePlatformView,
       'Train'
     );
     this.platformFrameInPlatformView = new ReferenceFrame(
       this.platformScene,
-      new THREE.Vector3(0.06, 0, 11),
+      new Vector3(0.06, 0, 11),
       this.platformClockInPlatformView,
-      new THREE.Vector3(0, 0, 0),
+      new Vector3(0, 0, 0),
       this.maxDistancePlatformView,
       'Platform');
     this.attachBobLabel(this.platformFrameInPlatformView, "Platform-Bob", Math.PI, .10, true);
@@ -542,21 +560,21 @@ class Gedanken {
 
     this.platformInTrainView = this.createPlatform(this.platformFrameInTrainView);
     this.platformInPlatformView = this.createPlatform(this.platformFrameInPlatformView);
-    this.trainCameraInitialPosition = new THREE.Vector3(0.06, .15, this.trainFrameInTrainView.position.z + 1.5 * TRAIN_LENGTH);
+    this.trainCameraInitialPosition = new Vector3(0.06, .15, this.trainFrameInTrainView.position.z + 1.5 * TRAIN_LENGTH);
     this.trainCamera = new Camera(
       this.trainCameraInitialPosition,
-      // new THREE.Vector3(0.06, .15, this.trainFrameInTrainView.position.z),
+      // new Vector3(0.06, .15, this.trainFrameInTrainView.position.z),
       this.trainFrameInTrainView,
-      new THREE.Vector3(0, 0, .1),
+      new Vector3(0, 0, .1),
       this.trainClockInTrainView,
       'train' + this.containerId
     );
 
-    this.platformCameraInitialPosition = new THREE.Vector3(0, 0.15, this.platformFrameInPlatformView.position.z - 1.5 * TRAIN_LENGTH);
+    this.platformCameraInitialPosition = new Vector3(0, 0.15, this.platformFrameInPlatformView.position.z - 1.5 * TRAIN_LENGTH);
     this.platformCamera = new Camera(
       this.platformCameraInitialPosition,
       this.platformFrameInPlatformView,
-      new THREE.Vector3(0, 0, 0),
+      new Vector3(0, 0, 0),
       this.platformClockInPlatformView,
       'platform' + this.containerId
     );
@@ -682,8 +700,8 @@ class Gedanken {
   orientLabels() {
     const platformCameraQ = this.platformCamera.quaternion.clone();
     const trainCameraQ = this.trainCamera.quaternion.clone();
-    let q = new THREE.Quaternion(0, 1, 0, 0);
-    q.setFromAxisAngle(new THREE.Vector3(0, 1, 0), 2 * Math.PI);
+    let q = new Quaternion(0, 1, 0, 0);
+    q.setFromAxisAngle(new Vector3(0, 1, 0), 2 * Math.PI);
     platformCameraQ.multiply(q);
     trainCameraQ.multiply(q);
 
@@ -735,8 +753,8 @@ class Gedanken {
   orientClocks() {
     const platformCameraQ = this.platformCamera.quaternion.clone();
     const trainCameraQ = this.trainCamera.quaternion.clone();
-    let q = new THREE.Quaternion(0, 1, 0, 0);
-    q.setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI);
+    let q = new Quaternion(0, 1, 0, 0);
+    q.setFromAxisAngle(new Vector3(0, 1, 0), Math.PI);
     platformCameraQ.multiply(q);
     trainCameraQ.multiply(q);
 
@@ -768,16 +786,16 @@ class Gedanken {
   }
 
   createScene() {
-    const scene = new THREE.Scene();
+    const scene = new Scene();
     scene.lights = [];
-    scene.background = new THREE.Color(0x000000);
-    const ambientLight = new THREE.AmbientLight(0x505050);
+    scene.background = new Color(0x000000);
+    const ambientLight = new AmbientLight(0x505050);
     ambientLight.castShadow = false;
     scene.add(ambientLight);
     scene.lights.push(ambientLight);
-    const ground = new THREE.Mesh(
-      new THREE.PlaneBufferGeometry(1000, 1000, 100, 100),
-      new THREE.ShadowMaterial({ opacity: 1 })
+    const ground = new Mesh(
+      new PlaneBufferGeometry(1000, 1000, 100, 100),
+      new ShadowMaterial({ opacity: 1 })
     );
 
 
@@ -790,19 +808,19 @@ class Gedanken {
     scene.ground = ground;
 
 
-    const helper = new THREE.GridHelper(100, 20);
+    const helper = new GridHelper(100, 20);
     helper.material.opacity = 1;
     scene.add(helper);
     scene.helper = helper;
-    scene.nearTarget = new THREE.Object3D();
+    scene.nearTarget = new Object3D();
     scene.nearTarget.position.z = 1000;
-    scene.farTarget = new THREE.Object3D();
+    scene.farTarget = new Object3D();
     scene.farTarget.position.z = -1000;
     return scene;
   }
 
   addLengthHelper(frame, xOffset = 0, gamma = 1, color = PLATFORM_COLOR) {
-    const helper = new THREE.GridHelper(1, 5, color, color);
+    const helper = new GridHelper(1, 5, color, color);
     helper.material.opacity = 1;
     helper.rotation.z = Math.PI / 2;
     helper.position.x = xOffset;
@@ -815,7 +833,7 @@ class Gedanken {
   }
 
   placeDirectionalLight(scene, position) {
-    const dirLight = new THREE.DirectionalLight(0xffffff, 1);
+    const dirLight = new DirectionalLight(0xffffff, 1);
     dirLight.position.x = position.x;
     dirLight.position.y = position.y;
     dirLight.position.z = position.z;
@@ -830,7 +848,7 @@ class Gedanken {
       return null;
     }
     const dimensions = container.getBoundingClientRect();
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    const renderer = new WebGLRenderer({ antialias: true });
     renderer.shadowMap.enabled = true;
     renderer.setSize(dimensions.width, dimensions.height);
     container.appendChild(renderer.domElement);
@@ -839,19 +857,19 @@ class Gedanken {
 
   createRailroad(scene) {
     const points = [];
-    points.push(new THREE.Vector3(0.0075, 0, 100));
-    points.push(new THREE.Vector3(0.0075, 0, -100));
+    points.push(new Vector3(0.0075, 0, 100));
+    points.push(new Vector3(0.0075, 0, -100));
 
-    const track1geo = new THREE.BufferGeometry().setFromPoints(points);
-    const track1 = new THREE.Line(track1geo, new THREE.LineBasicMaterial({ color: 0xffffff, linewidth: 2 }));
+    const track1geo = new BufferGeometry().setFromPoints(points);
+    const track1 = new Line(track1geo, new LineBasicMaterial({ color: 0xffffff, linewidth: 2 }));
 
     const points2 = [];
-    points2.push(new THREE.Vector3(-0.0075, 0, 100));
-    points2.push(new THREE.Vector3(-0.0075, 0, -100));
-    const track2geo = new THREE.BufferGeometry().setFromPoints(points2);
-    const track2 = new THREE.Line(track2geo, new THREE.LineBasicMaterial({ color: 0xffffff, linewidth: 2 }));
+    points2.push(new Vector3(-0.0075, 0, 100));
+    points2.push(new Vector3(-0.0075, 0, -100));
+    const track2geo = new BufferGeometry().setFromPoints(points2);
+    const track2 = new Line(track2geo, new LineBasicMaterial({ color: 0xffffff, linewidth: 2 }));
 
-    const railRoad = new THREE.Object3D();
+    const railRoad = new Object3D();
     railRoad.add(track1);
     railRoad.add(track2);
     scene.add(railRoad);
@@ -860,10 +878,10 @@ class Gedanken {
 
   addVerticalLine(frame, color = 0xFFFF00, top = 0.1, bottom = -0.1) {
     const points = [];
-    points.push(new THREE.Vector3(0, top, 0));
-    points.push(new THREE.Vector3(0, bottom, 0));
-    const geo = new THREE.BufferGeometry().setFromPoints(points);
-    const line = new THREE.Line(geo, new THREE.LineBasicMaterial({ color: color }));
+    points.push(new Vector3(0, top, 0));
+    points.push(new Vector3(0, bottom, 0));
+    const geo = new BufferGeometry().setFromPoints(points);
+    const line = new Line(geo, new LineBasicMaterial({ color: color }));
     frame.add(line);
 
   }
@@ -883,9 +901,9 @@ class Gedanken {
 
 
   createPlatform(referenceFrame, applyGamma = false, lengthLabel = '1') {
-    const platform = new THREE.Mesh(
-      new THREE.BoxBufferGeometry(0.06, 0.02, PLATFORM_LENGTH),
-      new THREE.MeshPhongMaterial({ color: PLATFORM_COLOR, shininess: 30 })
+    const platform = new Mesh(
+      new BoxBufferGeometry(0.06, 0.02, PLATFORM_LENGTH),
+      new MeshPhongMaterial({ color: PLATFORM_COLOR, shininess: 30 })
     );
     platform.receiveShadow = true;
     platform.castShadow = true;
@@ -896,11 +914,11 @@ class Gedanken {
       for (let k = 0; k < (this.numIntervals + 1); k++) {
 
         const points = [];
-        points.push(new THREE.Vector3(0, -.3, z));
-        points.push(new THREE.Vector3(0, .3, z));
+        points.push(new Vector3(0, -.3, z));
+        points.push(new Vector3(0, .3, z));
 
-        const geo = new THREE.BufferGeometry().setFromPoints(points);
-        const gridline = new THREE.Line(geo, new THREE.LineBasicMaterial({ color: PLATFORM_COLOR, linewidth: 2 }));
+        const geo = new BufferGeometry().setFromPoints(points);
+        const gridline = new Line(geo, new LineBasicMaterial({ color: PLATFORM_COLOR, linewidth: 2 }));
         platform.add(gridline);
         z += (PLATFORM_LENGTH / this.numIntervals);
 
@@ -916,14 +934,14 @@ class Gedanken {
   }
 
   createTrain(referenceFrame, applyGamma = false) {
-    const geometry = new THREE.BoxBufferGeometry(0.04, 0.05, CAR_LENGTH);
-    const material = new THREE.MeshPhongMaterial({ color: TRAIN_COLOR, shininess: 30 });
+    const geometry = new BoxBufferGeometry(0.04, 0.05, CAR_LENGTH);
+    const material = new MeshPhongMaterial({ color: TRAIN_COLOR, shininess: 30 });
 
-    const train = new THREE.Object3D;
+    const train = new Object3D;
 
     let z = - TRAIN_LENGTH / 2 + CAR_LENGTH / 2;
     for (let c = 0; c < 5; c++) {
-      let car = new THREE.Mesh(geometry, material);
+      let car = new Mesh(geometry, material);
       car.position.z = z;
       z += (CAR_LENGTH + CAR_GAP);
       car.position.y = 0.025;
@@ -948,11 +966,11 @@ class Gedanken {
       for (let k = 0; k < (this.numIntervals + 1); k++) {
 
         const points = [];
-        points.push(new THREE.Vector3(0, -.3, z));
-        points.push(new THREE.Vector3(0, .3, z));
+        points.push(new Vector3(0, -.3, z));
+        points.push(new Vector3(0, .3, z));
 
-        const geo = new THREE.BufferGeometry().setFromPoints(points);
-        const gridline = new THREE.Line(geo, new THREE.LineBasicMaterial({ color: TRAIN_COLOR, linewidth: 2 }));
+        const geo = new BufferGeometry().setFromPoints(points);
+        const gridline = new Line(geo, new LineBasicMaterial({ color: TRAIN_COLOR, linewidth: 2 }));
         train.add(gridline);
         z += (TRAIN_LENGTH / this.numIntervals);
 
@@ -975,15 +993,15 @@ class Gedanken {
 
   attachLabel(frame, label, offset, color = 0xFFFFFF) {
     const shapes = this.font.generateShapes(label, 0.05);
-    const textgeometry = new THREE.ShapeBufferGeometry(shapes);
+    const textgeometry = new ShapeBufferGeometry(shapes);
     textgeometry.computeBoundingBox();
     const xMid = - 0.5 * (textgeometry.boundingBox.max.x - textgeometry.boundingBox.min.x) - 0.004;
     textgeometry.translate(xMid, 0, 0);
-    const basic = new THREE.MeshBasicMaterial({
+    const basic = new MeshBasicMaterial({
       color: color,
-      side: THREE.DoubleSide
+      side: DoubleSide
     });
-    const text = new THREE.Mesh(textgeometry, basic);
+    const text = new Mesh(textgeometry, basic);
     text.renderOrder = -5;
     // text.rotation.y = rotation;
     text.rotation.y = Math.PI / 2;
@@ -996,11 +1014,11 @@ class Gedanken {
 
   attachBobLabel(frame, label, rotation, yPos = 0.125, visible = true) {
     const shapes = this.font.generateShapes(label, 0.03);
-    const textgeometry = new THREE.ShapeBufferGeometry(shapes);
+    const textgeometry = new ShapeBufferGeometry(shapes);
     textgeometry.computeBoundingBox();
     const xMid = - 0.5 * (textgeometry.boundingBox.max.x - textgeometry.boundingBox.min.x) - 0.004;
     textgeometry.translate(xMid, 0, 0);
-    const text = new THREE.Mesh(textgeometry, this.matLiteBasic);
+    const text = new Mesh(textgeometry, this.matLiteBasic);
     text.renderOrder = -5;
     text.rotation.y = rotation;
     // text.position.x = .05;
@@ -1012,15 +1030,15 @@ class Gedanken {
 
   attachMessage(frame, message, rotation, yPos = 0.20, visible = true, color = 0xFFFF00) {
     const shapes = this.font.generateShapes(message, 0.03);
-    const textgeometry = new THREE.ShapeBufferGeometry(shapes);
+    const textgeometry = new ShapeBufferGeometry(shapes);
     textgeometry.computeBoundingBox();
     const xMid = - 0.5 * (textgeometry.boundingBox.max.x - textgeometry.boundingBox.min.x) - 0.004;
     textgeometry.translate(xMid, 0, 0);
-    const basic = new THREE.MeshBasicMaterial({
+    const basic = new MeshBasicMaterial({
       color: color,
-      side: THREE.DoubleSide
+      side: DoubleSide
     });
-    const text = new THREE.Mesh(textgeometry, basic);
+    const text = new Mesh(textgeometry, basic);
     text.renderOrder = -5;
     text.rotation.y = rotation;
     // text.position.x = .05;
@@ -1033,16 +1051,16 @@ class Gedanken {
   attachInfinityLabel(car, translation, rotationY, size = 0.03) {
     const message = '\u221E';
     const shapes = this.font.generateShapes(message, size);
-    const textgeometry = new THREE.ShapeBufferGeometry(shapes);
+    const textgeometry = new ShapeBufferGeometry(shapes);
     textgeometry.computeBoundingBox();
     const xMid = - 0.5 * (textgeometry.boundingBox.max.x - textgeometry.boundingBox.min.x) - 0.004;
     textgeometry.translate(xMid, 0, 0);
-    const material = new THREE.MeshBasicMaterial({
+    const material = new MeshBasicMaterial({
       color: 0x666666,
-      side: THREE.DoubleSide
+      side: DoubleSide
     });
 
-    const text = new THREE.Mesh(textgeometry, material);
+    const text = new Mesh(textgeometry, material);
     text.renderOrder = -10;
     text.position.x = translation[0];
     text.position.y = translation[1];

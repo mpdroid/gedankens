@@ -1,6 +1,6 @@
 
 /* Shows how lorentz transformations work */
-import * as THREE from './node_modules/three/build/three.module.js';
+import {Vector3, Quaternion} from './node_modules/three/build/three.module.js';
 import * as GD from './gedanken.js';
 import { begin, beginMultiple, narrate } from './common.js';
 
@@ -124,9 +124,9 @@ class Lorentz extends GD.Gedanken {
     }
 
     const redSignalTime = radialTime(
-      new THREE.Vector3(-0.03, 0.2,
+      new Vector3(-0.03, 0.2,
         this.motionDirection * P / 2),
-      new THREE.Vector3(-0.03, 0,
+      new Vector3(-0.03, 0,
         0));
 
 
@@ -135,9 +135,9 @@ class Lorentz extends GD.Gedanken {
 
 
     const redTimeToReachTrainBobInPlatformView = radialTime(
-      new THREE.Vector3(-0.03, 0.2,
+      new Vector3(-0.03, 0.2,
         this.motionDirection * P / 2),
-      new THREE.Vector3(-0.03, 0,
+      new Vector3(-0.03, 0,
         redDistanceToTrainBobInPlatformView));
 
     const redDistanceToTrainBobInTrainView = xToPrime(redDistanceToTrainBobInPlatformView, redTimeToReachTrainBobInPlatformView);
@@ -152,9 +152,9 @@ class Lorentz extends GD.Gedanken {
       1,
       (frame, x, y, z) => {
         frame.dropLightning(
-          new THREE.Vector3(frame.xOffset, 0.2, z), this.c, 0xFF0000, .5, 5);
+          new Vector3(frame.xOffset, 0.2, z), this.c, 0xFF0000, .5, 5);
         frame.dropLightBubble(
-          new THREE.Vector3(frame.xOffset, 0.2, z), this.c, redTimeToReachTrainBobInPlatformView, 0xFF0000, this.playRate, 3, 'Red');
+          new Vector3(frame.xOffset, 0.2, z), this.c, redTimeToReachTrainBobInPlatformView, 0xFF0000, this.playRate, 3, 'Red');
       });
 
 
@@ -165,9 +165,9 @@ class Lorentz extends GD.Gedanken {
       1,
       (frame, x, y, z) => {
         frame.dropLightning(
-          new THREE.Vector3(frame.xOffset, 0.2, z), this.c, 0xFF0000, 0.5, 2);
+          new Vector3(frame.xOffset, 0.2, z), this.c, 0xFF0000, 0.5, 2);
         frame.dropLightBubble(
-          new THREE.Vector3(frame.xOffset, y, z), this.c, redSignalTime, 0xFF0000, this.playRate, 3, 'Red');
+          new Vector3(frame.xOffset, y, z), this.c, redSignalTime, 0xFF0000, this.playRate, 3, 'Red');
       });
 
     this.clicks['Red'] =  0;
@@ -247,16 +247,16 @@ class UnitLengths extends GD.Gedanken {
     this.trainFrameInTrainView.label.rotation.y = Math.PI / 2;
 
     const unitLength = GD.TRAIN_LENGTH;
-    this.trainFrameInTrainView.addDoubleArrow(new THREE.Vector3(0, -.2, 0),
-      new THREE.Vector3(0, -0.2, -unitLength / 2),
-      new THREE.Vector3(0, -0.2, unitLength / 2),
+    this.trainFrameInTrainView.addDoubleArrow(new Vector3(0, -.2, 0),
+      new Vector3(0, -0.2, -unitLength / 2),
+      new Vector3(0, -0.2, unitLength / 2),
       0xFFFFFF,
       '1',
       this.font
     );
-    this.platformFrameInPlatformView.addDoubleArrow(new THREE.Vector3(0, -.2,),
-      new THREE.Vector3(0, -0.2, -unitLength / 2),
-      new THREE.Vector3(0, -0.2, unitLength / 2),
+    this.platformFrameInPlatformView.addDoubleArrow(new Vector3(0, -.2,),
+      new Vector3(0, -0.2, -unitLength / 2),
+      new Vector3(0, -0.2, unitLength / 2),
       0xFFFFFF,
       '1',
       this.font
@@ -264,16 +264,16 @@ class UnitLengths extends GD.Gedanken {
 
     const unitLengthPrime = GD.PLATFORM_LENGTH / this.gamma;
 
-    this.platformFrameInTrainView.addDoubleArrow(new THREE.Vector3(0, -.1, 0),
-      new THREE.Vector3(0, -0.1, -unitLengthPrime / 2),
-      new THREE.Vector3(0, -0.1, unitLengthPrime / 2),
+    this.platformFrameInTrainView.addDoubleArrow(new Vector3(0, -.1, 0),
+      new Vector3(0, -0.1, -unitLengthPrime / 2),
+      new Vector3(0, -0.1, unitLengthPrime / 2),
       0xFFFFFF,
       '1 / \u03B3',
       this.font
     );
-    this.trainFrameInPlatformView.addDoubleArrow(new THREE.Vector3(0, -.1, 0),
-      new THREE.Vector3(0, -0.1, -unitLengthPrime / 2),
-      new THREE.Vector3(0, -0.1, unitLengthPrime / 2),
+    this.trainFrameInPlatformView.addDoubleArrow(new Vector3(0, -.1, 0),
+      new Vector3(0, -0.1, -unitLengthPrime / 2),
+      new Vector3(0, -0.1, unitLengthPrime / 2),
       0xFFFFFF,
       '1 / \u03B3',
       this.font
@@ -405,9 +405,9 @@ class LightPath extends GD.Gedanken {
     }
 
     const redSignalTime = radialTime(
-      new THREE.Vector3(-0.03, 0.2,
+      new Vector3(-0.03, 0.2,
         this.motionDirection * P / 2),
-      new THREE.Vector3(-0.03, 0,
+      new Vector3(-0.03, 0,
         0));
 
 
@@ -416,9 +416,9 @@ class LightPath extends GD.Gedanken {
 
 
     const redTimeToReachTrainBobInPlatformView = radialTime(
-      new THREE.Vector3(-0.03, 0.2,
+      new Vector3(-0.03, 0.2,
         this.motionDirection * P / 2),
-      new THREE.Vector3(-0.03, 0,
+      new Vector3(-0.03, 0,
         redDistanceToTrainBobInPlatformView));
 
     const redDistanceToTrainBobInTrainView = xToPrime(redDistanceToTrainBobInPlatformView, redTimeToReachTrainBobInPlatformView);
@@ -432,17 +432,17 @@ class LightPath extends GD.Gedanken {
       1,
       (frame, x, y, z) => {
         frame.dropArc(
-          new THREE.Vector3(frame.xOffset, 0.3, z), this.c, 0xFF0000, 1, 3);
+          new Vector3(frame.xOffset, 0.3, z), this.c, 0xFF0000, 1, 3);
 
-        frame.addArrow(new THREE.Vector3(frame.xOffset, y, z),
-          new THREE.Vector3(frame.xOffset, 0, 0 + redDistanceToTrainBobInPlatformView),
+        frame.addArrow(new Vector3(frame.xOffset, y, z),
+          new Vector3(frame.xOffset, 0, 0 + redDistanceToTrainBobInPlatformView),
           0xFFFFFF, 'ct', this.font, 0);
 
         frame.addArrow(
-          new THREE.Vector3(frame.xOffset, y, z), new THREE.Vector3(frame.xOffset, y, 0 + redDistanceToTrainBobInPlatformView),
+          new Vector3(frame.xOffset, y, z), new Vector3(frame.xOffset, y, 0 + redDistanceToTrainBobInPlatformView),
           0xFFFFFF, 'x', this.font, 0);
         frame.addArrow(
-          new THREE.Vector3(frame.xOffset, y, z), new THREE.Vector3(frame.xOffset, 0, z),
+          new Vector3(frame.xOffset, y, z), new Vector3(frame.xOffset, 0, z),
           0xFFFFFF, 'y = y\'', this.font, 0);
 
       });
@@ -460,17 +460,17 @@ class LightPath extends GD.Gedanken {
       1,
       (frame, x, y, z) => {
         frame.dropArc(
-          new THREE.Vector3(frame.xOffset, 0.3, z), this.c, 0xFF0000, 1, 3);
+          new Vector3(frame.xOffset, 0.3, z), this.c, 0xFF0000, 1, 3);
 
-        frame.addArrow(new THREE.Vector3(frame.xOffset, y, z),
-          new THREE.Vector3(frame.xOffset, 0, 0 ),
+        frame.addArrow(new Vector3(frame.xOffset, y, z),
+          new Vector3(frame.xOffset, 0, 0 ),
           0xFFFFFF, 'ct\'', this.font, 0);
 
         frame.addArrow(
-          new THREE.Vector3(frame.xOffset, y, z), new THREE.Vector3(frame.xOffset, y, 0 ),
+          new Vector3(frame.xOffset, y, z), new Vector3(frame.xOffset, y, 0 ),
           0xFFFFFF, 'x\'', this.font, 0);
         frame.addArrow(
-          new THREE.Vector3(frame.xOffset, y, z), new THREE.Vector3(frame.xOffset, 0, z),
+          new Vector3(frame.xOffset, y, z), new Vector3(frame.xOffset, 0, z),
           0xFFFFFF, 'y\' = y', this.font, 0);
       });
 

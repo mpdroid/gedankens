@@ -1,4 +1,4 @@
-import * as THREE from './node_modules/three/build/three.module.js';
+import {Vector3} from './node_modules/three/build/three.module.js';
 import * as GD from './gedanken.js';
 import { begin, narrate } from './common.js';
 
@@ -42,19 +42,19 @@ class ConstantC extends GD.Gedanken {
     if (this.bobsHaveCrossed()) {
 
       this.platformFrameInTrainView.dropParticleCloud(
-        new THREE.Vector3(0, .03, 0), (this.v) / 5, 0, 0xFFFFFF, 1, 5);
+        new Vector3(0, .03, 0), (this.v) / 5, 0, 0xFFFFFF, 1, 5);
       this.trainFrameInTrainView.dropLightBubble(
-        new THREE.Vector3(0.06, 0, 0), this.c, 0, 0x00CCFF, 0);
+        new Vector3(0.06, 0, 0), this.c, 0, 0x00CCFF, 0);
 
       this.platformFrameInPlatformView.dropParticleCloud(
-        new THREE.Vector3(0, 0.03, 0), (this.v) / 5, 0, 0xFFFFFF, 1, 5);
+        new Vector3(0, 0.03, 0), (this.v) / 5, 0, 0xFFFFFF, 1, 5);
 
       this.platformFrameInPlatformView.dropLightBubble(
-        new THREE.Vector3(0, 0, 0), this.c, 0, 0x00CCFF, 1, 10);
+        new Vector3(0, 0, 0), this.c, 0, 0x00CCFF, 1, 10);
       this.platformFrameInPlatformView.dropLightning(
-        new THREE.Vector3(0, 0, 0), this.c, 0x00CCFF);
+        new Vector3(0, 0, 0), this.c, 0x00CCFF);
       this.trainFrameInTrainView.dropLightning(
-        new THREE.Vector3(0.06, 0, 0), this.c, 0x00CCFF);
+        new Vector3(0.06, 0, 0), this.c, 0x00CCFF);
 
     }
 
