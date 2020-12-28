@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Gedanken-Experiments for Special Theory of Relativity</title>
+  <meta title="Gedanken-Experiments for Special Theory of Relativity" />
+  <meta name="Keywords"
+    content="Relativity, Special Theory, Gedanken, Gedanken-Experiments, THREE, THREE.js, gedaclock" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="dev@lemmaplay.com">
+  <meta property="og:title" content="Gedanken-Experiments for Special Theory of Relativity" />
+  <meta property="og:site_name" content="gedankens" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mpdroid.github.io/gedankens/" />
+  <meta property="og:image" content="https://mpdroid.github.io/gedankens/assets/gedaclock.png" />
+  <meta name="description" content="Thought experiments to understand Special Relativity" />
+  <meta property="og:description" content="Thought experiments to understand Special Relativity" />
+  <link href="../assets/gedaclock.png" rel="shortcut icon" type="image/png">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script>
+    var isIntExp = /*@cc_on!@*/ false || !!document.documentMode;
+    if (isIntExp) {
+      window.location.href = "error.html";
+    }
+  </script>
+  <script type="application/ld+json">
+          {
+            "@context": "http://schema.org",
+            "@type": "Organization",
+            "url": "http://www.gedankens.com",
+            "logo": "https://mpdroid.github.io/gedankens/assets/gedaclock.png"
+          }
+        </script>
+  <link type="text/css" rel="stylesheet" href="main.css">
+</head>
+
+<body>
+  <script type="module" src="length-contraction.js"></script>
+  <div id="three">
+    <div id="trainIrf">
+    </div>
+    <div id="platformIrf">
+    </div>
+  </div>
+  <div id="mainContainer">
+    <div id="header">
+      <div id="topnav">
+        <a class="material-icons" href="index.html">home</a>
+        <div class="selected">Special Relativity: Length contraction</div>
+        <a class="material-icons" href="https://github.com/mpdroid/gedankens" target="_blank">code</a>
+      </div>
+      <div id="principle">Length of a moving object is contracted in the direction of motion, when measured by an
+        observer at rest.</div>
+      <div id="narrated"></div>
+    </div>
+    <div id="footer">
+      <div id="controls">
+        <div class="row tooltip">
+          <div class="label tooltip">
+            <span class="tooltiptext">Lower the ratio to increase relativistic effects</span>
+            Speed Ratio (c/v)
+          </div>
+          <div class="range"><input type="range" min="1" max="3" value="1.25" step="0.01" id="lightSpeed"
+              class="slider">
+          </div>
+          <div class="value"><span id="lightSpeedValue">1.25</span>
+          </div>
+        </div>
+
+      </div>
+      <div id="theory">
+        <p>Let us apply the  4Ws:
+          <ul>
+            <li>What happened? Train first started crossing Platform-Bob. Train then finished crossing Platform-Bob.</li>
+            <li>Who was watching? Train-Bob and Platform-Bob. Let us call the events, $E_1$ and $E_2$ on the train reference frame, and $E'_1$ and $E'_2$ on the platform reference frame. </li>
+            <li>Where did they happen? $E_1$ occurs at the leading end of the train. $E_2$ occurs at the lagging end of the train. Both $E'_1$ and $E'_2$ occur right in front of Platform-Bob.</li>
+            <li>When did they happen? At a time interval required by the train to travel its own length at the relative velocity $v$.</li>
+          </ul>
+        </p>
+        <p>Let us say Train-Bob measures the proper length (length in its own reference frame) of the train as $l'$.</p>
+        <p>Now consider the length of the train as measured by Platform Bob. At the outset, we are not sure that this
+          will be same as $l'$. So let us call it $l$.</p>
+        <p>Let $t$ be the time it takes for the train to pass Platform-Bob (as measured on the platform). Due to time
+          dilation, this is measured as $t' = \gamma{t}$ from the train.</p>
+          <p>As the relative velocity is $v$ for both
+        observers, $l' = vt'$ and $l = vt$.
+        <div id="maxwell">
+          $$
+          \begin{array}{rl}
+          l' &amp;= vt'\\
+          &amp;= v(\gamma{t})\\
+          &amp;= \gamma(vt)\\
+          &amp;= \gamma{l}\\
+          \text{and so,}\\
+          l&amp;= l'/\gamma\\
+          \end{array}
+          $$
+        </div>
+        </p>
+        <p> As $\gamma = \frac{1}{\sqrt{1 - \frac{v^2}{c^2}}}$, it is greater than 1 for $v < c$. </p>
+            <p> So $l < l'$ i.e. length of the train as measured by Platform-Bob is less than its proper length,
+                measured on the train. Note that there is no contraction in directions perpendicular to the motion.</p>
+                <p>Set the ratio of $c/v$ to 1, to observe what happens when the train moves at the speed of light!</p>
+      </div>
+    </div>
+
+  </div>
+  <div id="bottomnav">
+    <a href="time-dilation.html"><span class="material-icons">arrow_left</span>Time dilation</a>
+    <a href="lorentz.html">Lorentz transformations<span class="material-icons">arrow_right</span></a>
+  </div>
+
+</body>
+
+</html>

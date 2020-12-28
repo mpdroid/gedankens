@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Gedanken-Experiments for Special Theory of Relativity</title>
+  <meta title="Gedanken-Experiments for Special Theory of Relativity" />
+  <meta name="Keywords"
+    content="Relativity, Special Theory, Gedanken, Gedanken-Experiments, THREE, THREE.js, gedaclock" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="dev@lemmaplay.com">
+  <meta property="og:title" content="Gedanken-Experiments for Special Theory of Relativity" />
+  <meta property="og:site_name" content="gedankens" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mpdroid.github.io/gedankens/" />
+  <meta property="og:image" content="https://mpdroid.github.io/gedankens/assets/gedaclock.png" />
+  <meta name="description" content="Thought experiments to understand Special Relativity" />
+  <meta property="og:description" content="Thought experiments to understand Special Relativity" />
+  <link href="../assets/gedaclock.png" rel="shortcut icon" type="image/png">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script>
+    var isIntExp = /*@cc_on!@*/ false || !!document.documentMode;
+    if (isIntExp) {
+      window.location.href = "error.html";
+    }
+  </script>
+  <script type="application/ld+json">
+          {
+            "@context": "http://schema.org",
+            "@type": "Organization",
+            "url": "http://www.gedankens.com",
+            "logo": "https://mpdroid.github.io/gedankens/assets/gedaclock.png"
+          }
+        </script>
+  <link type="text/css" rel="stylesheet" href="main.css">
+</head>
+
+<body>
+  <script type="module" src="ros.js"></script>
+  <div id="three">
+    <div id="platformIrf"></div>
+    <div id="trainIrf"></div>
+  </div>
+  <div id="mainContainer">
+    <div id="header">
+      <div id="topnav">
+        <a class="material-icons" href="index.html">home</a>
+        <div class="selected">Special Relativity: Relativity of Simultaneity</div>
+        <a class="material-icons" href="https://github.com/mpdroid/gedankens" target="_blank">code</a>
+      </div>
+      <div id="principle">Events that are simultaneous for one observer,
+        are not simultaneous to another observer who  is at constant motion
+        relative to the first.</div>
+      <div id="narrated"></div>
+      <div id="controls">
+        <div class="row tooltip">
+          <div class="label tooltip">
+            <span class="tooltiptext">Lower the ratio to increase relativistic effects</span>
+            Speed Ratio (c/v)
+          </div>
+          <div class="range"><input type="range" min="1" max="3" value="2" step="0.01" id="lightSpeed"
+              class="slider">
+          </div>
+          <div class="value"><span id="lightSpeedValue">2</span>
+          </div>
+        </div>
+    </div>
+    <div id="footer">
+      <div id="theory">
+        <p>Platform-Bob states that both red and blue lightning occurred at the same
+            time. Whereas, Train-Bob states that the red lightning occurred before the blue. Why?</p>
+          <ul>
+            <li>As seen from the platform, Train-Bob is moving towards the red lightning and
+              away from the blue lightning. So the bubble from red lightning reaches Train-Bob
+              before the one from blue.</li>
+            <li>The instant when each bubble reaches Train-Bob in the platform reference frame, is the same instant when its doppleganger reaches Train-Bob on the train reference frame.</li>
+            <li>But when Train-Bob receives the light signal in the train reference frame, it is old
+              news. It is from way back when the events were
+              occurring only half a train length away.</li>
+            <li>He double-checks this by observing the marks left by
+              the lightning bolts on either end of the train.
+            </li>
+            <li>And so, per Train-Bob's own observation (path of his own light bubbles), light from each lightning strike has traveled
+              the same distance, to reach him at different times.</li>
+            <li>Based on this, and the postulate that the speed of
+              light is constant in either direction, Train-Bob
+              concludes that, indeed, the red lightning
+              occurred before the blue!</li>
+
+          </ul>
+          <p>
+          Therefore, we see that a time interval between the two events as measured
+          from the
+          platform, may not be
+          the same when measured from
+          the moving train. Time, like distance, is relative to the observer's frame of
+          reference!</p>
+      </div>
+
+
+    </div>
+  </div>
+  <div id="bottomnav">
+    <a href="constant-c.html"><span class="material-icons">arrow_left</span>Speed of light</a>
+    <a href="time-dilation.html">Time dilation <span class="material-icons">arrow_right</span></a>
+  </div>
+
+</body>
+
+</html>

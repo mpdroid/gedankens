@@ -1,0 +1,667 @@
+* {
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  /* Safari */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* IE10+/Edge */
+  user-select: none;
+  /* Standard */
+}
+
+body {
+  margin: 0;
+  background-color: #000000;
+  color: #fff;
+  /* font-family: 'Roboto Mono', monospace; */
+  /* font-family: 'Vollkorn', serif; */
+  font-family: 'Roboto', sans-serif;
+  font-family: Garamond, serif;
+  font-size: 1.5vmax;
+  line-height: 2vmax;
+  overscroll-behavior: none;
+  position: relative;
+  visibility: hidden;
+}
+
+#threeContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+
+#three {
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  height: 80vh;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  z-index: 0;
+  width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+  #three {
+    flex-direction: column;
+    margin-top: 10vh;
+    height: 80vh;
+  }
+}
+
+li {
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+}
+
+#trainIrf,
+#trainUnitLength,
+#trainLightClock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+
+@media only screen and (max-width: 600px) {
+  #trainIrf,
+  #trainUnitLength,
+  #trainLightClock {
+    height: 40vh;
+    width: 100vw;
+  }
+}
+
+
+#trainIrf canvas {
+  display: flex;
+  width: 100%;
+}
+
+
+#platformIrf,
+#platformLightPath,
+#trainLightPath,
+#platformUnitLength,
+#trainLightClock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+@media only screen and (max-width: 600px) {
+  #platformIrf,
+  #platformLightPath,
+  #trainLightPath,
+  #platformUnitLength,
+  #trainLightClock {
+    height: 40vh;
+    width: 100vw;
+  }
+}
+
+
+
+#platformIrf canvas {
+  display: flex;
+  width: 100%;
+}
+#introDanken,
+#lightPath {
+  display: flex;
+  flex-direction: row;
+}
+
+#platformLightPath canvas {
+  display: flex;
+  width: 100%;
+}
+
+#trainLightPath canvas {
+  display: flex;
+  width: 100%;
+}
+
+#platformLightClock canvas {
+  display: flex;
+  width: 100%;
+}
+
+#platformIntro canvas {
+  display: flex;
+  width: 100%;
+}
+
+#platformLightPath,
+#trainLightPath {
+  width: 100%;
+  height: 50vh;
+}
+
+
+
+
+#platformLightClock {
+  width: 100%;
+  height: 50vh;
+}
+
+#platformIntro {
+  width: 100%;
+  height: 100vh;
+}
+
+#introDanken,
+#unitLength,
+#lightClock {
+  width: 100%;
+}
+
+#platformUnitLength,
+#trainUnitLength,
+#platformLightClock,
+#trainUnitClock {
+  width: 100%;
+  height: 40vh;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+
+}
+
+#mainContainer {
+  /* position: fixed;
+    top: 0; */
+  height: auto;
+  min-height: 100vh;
+  width: 100vw;
+  z-index: 100;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  padding: 1rem;
+
+
+}
+
+#header {
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+#header>* {
+  margin: 0.5rem;
+}
+
+#bad-browser {
+  display: flex;
+  color: white;
+  height: 100vh;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+  font-size: 2vmax;
+}
+
+#topnav {
+  /* margin: 1rem; */
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#topnav>* {
+  font-size: 2.5vmax;
+  line-height: 3vmax;
+  cursor: pointer;
+}
+
+#topnav>.selected {
+  font-weight: bold;
+  cursor: default;
+}
+
+#principle {
+  padding-left: 5vw;
+  padding-right: 5vw;
+  font-size: 1.8vmax;
+  line-height: 2.5vmax;
+  text-align: center;
+  /* color: yellow; */
+  font-family: Garamond, serif;
+  /* font-family: 'Roboto Mono', monospace; */
+  /* font-style: italic; */
+}
+
+#narrated {
+  padding-left: 5vw;
+  padding-right: 5vw;
+  font-size: 1.4vmax;
+  font-family: 'Roboto Mono', monospace;
+  font-style: oblique;
+  line-height: 2.5vmax;
+  text-align: center;
+  height: 50vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  white-space: pre-wrap;
+  /* color: skyblue;
+  color: #9afeff; */
+  color: yellow;
+}
+
+@media only screen and (max-width: 600px) {
+  #narrated {
+    height: 60vh;
+  }
+
+}
+
+#gedanken {
+  padding-left: 5vw;
+  padding-right: 5vw;
+  font-size: 1.8vmax;
+  line-height: 2.5vmax;
+  text-align: center;
+  height: 50vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.derivation-section {
+  margin-left: 3vw;
+}
+
+.derivation-section p {
+  display: list-item;          /* This has to be "list-item"                                               */
+  list-style-type: disc;       /* See https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type     */
+  list-style-position: outside; /* See https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-position */
+}
+
+#controls {
+  display: flex;
+  flex-direction: column;
+
+  /* justify-content: space-evenly; */
+  align-items: center;
+  /* height: 24vw; */
+  /* padding-left: 2vw;
+    padding-right: 2vw;
+    padding-top: 2vw; */
+  padding-bottom: 2vw;
+  font-size: 1.5vmax;
+  line-height: 2vmax;
+  /* display: none; */
+}
+
+#controls .row {
+  display: flex;
+  flex-direction: row;
+  margin-top: 2vh;
+}
+
+#controls .row .label {
+  width: 20vw;
+  text-align: right;
+  /* min-width: 100px; */
+}
+
+#controls .row .range {
+  width: 10vw;
+  /* min-width: 100px; */
+  text-align: left;
+}
+
+#controls .row .value {
+  width: 20vw;
+  /* min-width: 20px; */
+  text-align: left;
+}
+
+
+#controls .row>* {
+  padding-left: 1vw;
+  padding-right: 1vw;
+  /* border: 1px solid white; */
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: .3rem;
+  background: white;
+  outline: none;
+  opacity: 1;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.5rem;
+  background: skyblue;
+  background: #9afeff;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.5rem;
+  background: skyblue;
+  background: #9afeff;
+  cursor: pointer;
+}
+
+
+
+
+#footer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  z-index: 0;
+}
+
+#footer>* {
+  margin: 0.5rem;
+}
+
+p {
+  margin-block-start: .5em;
+  margin-block-end: .5em;
+}
+
+#theory {
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  padding-left: 5vw;
+  padding-right: 5vw;
+  font-size: 1.8vmax;
+  line-height: 2.5vmax;
+  margin-top: 2vh;
+  margin-bottom: 5vh;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  /* visibility: hidden; */
+}
+#references {
+  /* display: flex;
+  flex-direction: column; */
+  z-index: 10;
+  padding-left: 5vw;
+  padding-right: 5vw;
+  font-size: 1.8vmax;
+  line-height: 2.5vmax;
+  margin-top: 2vh;
+  margin-bottom: 5vh;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  /* visibility: hidden; */
+}
+h3 {
+  margin-top: 5vh;
+  margin-bottom: 2vh;
+  width: 100%;
+  border-bottom: 1px solid white;
+}
+
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+body {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+a,
+.fake-link,
+.fake-link-em,
+a:visited,
+a:active {
+  /* color:skyblue; */
+  color: skyblue;
+  color: #9afeff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.fake-link-em {
+  color: skyblue;
+  color: #9afeff;
+}
+
+
+#toggleLongForm {
+  position: absolute;
+  z-index: 100;
+  right: 3vw;
+  top: 0;
+}
+
+#openLongForm {
+  display: flex;
+  cursor: pointer;
+}
+
+#closeLongForm {
+  display: none;
+  z-index: 100;
+  cursor: pointer;
+}
+
+#longExplanation {
+  margin-top: 0;
+  /* visibility: hidden;
+    height: 0vh; */
+  flex-direction: column;
+  font-size: 1.8vmax;
+  line-height: 2.5vmax;
+  /* background-color: rgba(0, 0, 0, 0.3);; */
+  z-index: 10;
+  /* padding-left: 5vw;
+    padding-right: 5vw; */
+  /* font-size: 1.2vmax;
+    line-height: 2vmax;
+    margin-top: 2vh;
+    margin-bottom: 5vh;  */
+}
+
+#maxwell {
+  /* width: 60vw; */
+  margin-left: 5vw;
+  /* margin: 0 auto; */
+  margin-bottom: 1vh;
+}
+
+#trainFooter {
+  border: 0.5px solid white;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* width: 100%; */
+  overflow: hidden;
+  align-self: flex-end;
+}
+
+#platformFooter {
+  border: 0.5px solid white;
+  /* padding: 1rem; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* width: 100%; */
+  overflow: hidden;
+  align-self: flex-end;
+}
+
+#bottomnav {
+  /* position: fixed; */
+  bottom: 0;
+  z-index: 100;
+  width: 100%;
+  /* margin: 1rem; */
+  display: flex;
+  text-align: center;
+  /* flex-direction: row; */
+  justify-content: space-between;
+}
+
+#bottomnav>* {
+  background-color: rgba(0, 0, 0, 1);
+  padding: 1vw;
+  border-radius: 1vw;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 1.8vmax;
+  /* line-height: 1rem; */
+}
+
+
+/* -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
+-moz-animation: fadein 1s;
+/* Firefox < 16 */
+-ms-animation: fadein 1s;
+/* Internet Explorer */
+-o-animation: fadein 1s;
+/* Opera < 12.1 */
+animation: fadein 1s;
+
+*/ @keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+  /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 100%;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
