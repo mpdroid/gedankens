@@ -6,6 +6,7 @@ import {Bob} from './bob.js';
 
 let scene, camera, renderer, lights;
 let bob;
+let frameCount = 0;
 
 
 function initScene() {
