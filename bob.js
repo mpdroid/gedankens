@@ -1,4 +1,4 @@
-import * as THREE from './node_modules/three/build/three.module.js';
+import * as THREE from './node_modules/three/build/three.min.js';
 class Bob extends THREE.Object3D {
     constructor(scaleFactor=0.15, color= 0xff6347) {
         super();

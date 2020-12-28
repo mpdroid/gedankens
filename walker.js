@@ -108,6 +108,6 @@ function render() {
 
 
 document.body.style.visibility = 'visible';
-// initScene();
-// render();
+initScene();
+render();
 
