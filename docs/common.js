@@ -1,4 +1,4 @@
-import * as THREE from './node_modules/three/build/three.module.js';
+import { FontLoader } from './node_modules/three/build/three.module.js';
 let font;
 let gedanken;
 let gendankenElementIds = [];
@@ -70,7 +70,7 @@ function preload(gedankenate) {
     }
   }
   window.onresize = function(){ location.reload(); }
-  const fontloader = new THREE.FontLoader();
+  const fontloader = new FontLoader();
   fontloader.load('./assets/Roboto_Regular.json', (fnt) => {
     font = fnt;
     onCount();

@@ -1,4 +1,17 @@
-import * as THREE from './node_modules/three/build/three.module.js';
+import {
+  Vector3,
+  SphereBufferGeometry,
+  MeshPhongMaterial,Mesh,Vector2, DoubleSide,
+  LatheBufferGeometry,
+  CylinderBufferGeometry,
+  SkinnedMesh,
+  Skeleton,
+  Bone,
+  Object3D,
+  Scene,
+  Uint16BufferAttribute,
+  Float32BufferAttribute
+ }  from './node_modules/three/build/three.module.js';
 
 let gui, scene, camera, renderer, orbit, ambientLight, lights, mesh, bones, skeletonHelper;
 

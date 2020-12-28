@@ -1,5 +1,5 @@
 /* Demonstrates that time dilates */
-import * as THREE from './node_modules/three/build/three.module.js';
+import {Vector3, Quaternion} from './node_modules/three/build/three.module.js';
 import * as GD from './gedanken.js';
 import { beginMultiple, begin, narrate } from './common.js';
 
@@ -72,7 +72,7 @@ class TimeDilation extends GD.Gedanken {
       this.trainFrameInTrainView.addEvent(0, 0, 0, 2 * trainSignalTime * k, 1,
         (frame, x, y, z) => {
           this.trainFrameInTrainView.dropArc(
-            new THREE.Vector3(0, GD.TRAIN_LENGTH / 4, 0), this.c, 0x00CCFF);
+            new Vector3(0, GD.TRAIN_LENGTH / 4, 0), this.c, 0x00CCFF);
           if (!!this.previousTrainRayForward) {
             this.previousTrainRayForward.visible = false;
           }
@@ -80,7 +80,7 @@ class TimeDilation extends GD.Gedanken {
             this.previousTrainRayReverse.visible = false;
           }
           this.previousTrainRayForward = this.trainFrameInTrainView.dropLightRay(
-            new THREE.Vector3(0, GD.TRAIN_LENGTH / 4 + 0.02, 0), this.trainFrameInTrainView, new THREE.Vector3(0, 0.02, 0), this.c, trainSignalTime, trainSignalTime, 0xFFFFFF,
+            new Vector3(0, GD.TRAIN_LENGTH / 4 + 0.02, 0), this.trainFrameInTrainView, new Vector3(0, 0.02, 0), this.c, trainSignalTime, trainSignalTime, 0xFFFFFF,
             '', this.font,
             0);
         });
@@ -88,7 +88,7 @@ class TimeDilation extends GD.Gedanken {
       this.trainFrameInTrainView.addEvent(0, 0, 0, 2 * trainSignalTime * k + trainSignalTime, 1,
         (frame, x, y, z) => {
           this.previousTrainRayReverse = this.trainFrameInTrainView.dropLightRay(
-            new THREE.Vector3(0, 0.02, 0), this.trainFrameInTrainView, new THREE.Vector3(0, GD.TRAIN_LENGTH / 4 + .02, 0), this.c, trainSignalTime, trainSignalTime, 0xFFFFFF,
+            new Vector3(0, 0.02, 0), this.trainFrameInTrainView, new Vector3(0, GD.TRAIN_LENGTH / 4 + .02, 0), this.c, trainSignalTime, trainSignalTime, 0xFFFFFF,
             '', this.font,
             0);
         });
@@ -108,7 +108,7 @@ class TimeDilation extends GD.Gedanken {
       this.platformFrameInPlatformView.addEvent(0, 0, 0, 2 * platformSignalTime * k, 1,
         (frame, x, y, z) => {
           this.platformFrameInPlatformView.dropArc(
-            new THREE.Vector3(-0.06, GD.TRAIN_LENGTH / 4 + 0.02, zDelta), this.c, 0x00CCFF);
+            new Vector3(-0.06, GD.TRAIN_LENGTH / 4 + 0.02, zDelta), this.c, 0x00CCFF);
           if (!!this.previousPlatformRayForward) {
             this.previousPlatformRayForward.visible = false;
           }
@@ -116,16 +116,16 @@ class TimeDilation extends GD.Gedanken {
             this.previousPlatformRayReverse.visible = false;
           }
           this.previousPlatformRayForward = this.platformFrameInPlatformView.dropLightRay(
-            new THREE.Vector3(-0.06, GD.TRAIN_LENGTH / 4 + 0.02, zDelta), this.platformFrameInPlatformView,
-            new THREE.Vector3(-0.06, 0.02, zDelta + this.motionDirection * platformDistance), this.c, platformSignalTime, platformSignalTime, 0xFFFFFF,
+            new Vector3(-0.06, GD.TRAIN_LENGTH / 4 + 0.02, zDelta), this.platformFrameInPlatformView,
+            new Vector3(-0.06, 0.02, zDelta + this.motionDirection * platformDistance), this.c, platformSignalTime, platformSignalTime, 0xFFFFFF,
             '', this.font,
             0);
         });
       this.platformFrameInPlatformView.addEvent(0, 0, 0, 2 * platformSignalTime * k + platformSignalTime, 1,
         (frame, x, y, z) => {
           this.previousPlatformRayReverse = this.platformFrameInPlatformView.dropLightRay(
-            new THREE.Vector3(-0.06, 0.02, zDelta + this.motionDirection * platformDistance), this.platformFrameInPlatformView,
-            new THREE.Vector3(-0.06, GD.TRAIN_LENGTH / 4 + + 0.02, zDelta + this.motionDirection * 2 * platformDistance), this.c, platformSignalTime, platformSignalTime, 0xFFFFFF,
+            new Vector3(-0.06, 0.02, zDelta + this.motionDirection * platformDistance), this.platformFrameInPlatformView,
+            new Vector3(-0.06, GD.TRAIN_LENGTH / 4 + + 0.02, zDelta + this.motionDirection * 2 * platformDistance), this.c, platformSignalTime, platformSignalTime, 0xFFFFFF,
             '', this.font,
             0);
         });
@@ -178,8 +178,8 @@ class LightClock extends GD.Gedanken {
     this.platformCamera.lookAt(targetPosition);
 
     const cameraRot = this.platformCamera.quaternion.clone();
-    let q = new THREE.Quaternion(0, 1, 0, 0);
-    q.setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI);
+    let q = new Quaternion(0, 1, 0, 0);
+    q.setFromAxisAngle(new Vector3(0, 1, 0), Math.PI);
     cameraRot.multiply(q);
     this.trainFrameInPlatformView.watch.quaternion.copy(cameraRot);
     // this.platformFrameInPlatformView.label.quaternion.copy(this.platformCamera.quaternion.clone());
@@ -238,26 +238,26 @@ class LightClock extends GD.Gedanken {
       this.platformFrameInPlatformView.addEvent(0, 0, 0, 2 * platformSignalTime * k, 1,
         (frame, x, y, z) => {
           this.platformFrameInPlatformView.dropArc(
-            new THREE.Vector3(-0.03, GD.TRAIN_LENGTH / 4 + 0.02, zDelta), this.c, 0x00CCFF, 2, 2);
+            new Vector3(-0.03, GD.TRAIN_LENGTH / 4 + 0.02, zDelta), this.c, 0x00CCFF, 2, 2);
           this.previousPlatformRayForward = this.platformFrameInPlatformView.dropLightRay(
-            new THREE.Vector3(-0.03, GD.TRAIN_LENGTH / 4 + 0.02, zDelta), this.platformFrameInPlatformView,
-            new THREE.Vector3(-0.03, 0.02, zDelta + this.motionDirection * platformDistance), this.c, platformSignalTime, platformSignalTime, 0xFFFFFF,
+            new Vector3(-0.03, GD.TRAIN_LENGTH / 4 + 0.02, zDelta), this.platformFrameInPlatformView,
+            new Vector3(-0.03, 0.02, zDelta + this.motionDirection * platformDistance), this.c, platformSignalTime, platformSignalTime, 0xFFFFFF,
             'ct\'', this.font,
             0);
         });
       this.platformFrameInPlatformView.addEvent(0, 0, 0, 2 * platformSignalTime * k, 1,
         (frame, x, y, z) => {
           this.previousPlatformRayForward = this.platformFrameInPlatformView.dropLightRay(
-            new THREE.Vector3(-0.03, GD.TRAIN_LENGTH / 4 + 0.02, zDelta + this.motionDirection * platformDistance), this.platformFrameInPlatformView,
-            new THREE.Vector3(-0.03, 0.02, zDelta + this.motionDirection * platformDistance), this.c, trainSignalTime, trainSignalTime, 0xFFFFFF,
+            new Vector3(-0.03, GD.TRAIN_LENGTH / 4 + 0.02, zDelta + this.motionDirection * platformDistance), this.platformFrameInPlatformView,
+            new Vector3(-0.03, 0.02, zDelta + this.motionDirection * platformDistance), this.c, trainSignalTime, trainSignalTime, 0xFFFFFF,
             'ct', this.font,
             0);
         });
       this.platformFrameInPlatformView.addEvent(0, 0, 0, 2 * platformSignalTime * k, 1,
         (frame, x, y, z) => {
           this.platformFrameInPlatformView.dropLightRay(
-            new THREE.Vector3(-0.03, GD.TRAIN_LENGTH / 4 + 0.02, zDelta), this.platformFrameInPlatformView,
-            new THREE.Vector3(-0.03, GD.TRAIN_LENGTH / 4 + 0.02, zDelta + this.motionDirection * platformDistance), this.v, platformSignalTime, platformSignalTime, 0xFFFFFF,
+            new Vector3(-0.03, GD.TRAIN_LENGTH / 4 + 0.02, zDelta), this.platformFrameInPlatformView,
+            new Vector3(-0.03, GD.TRAIN_LENGTH / 4 + 0.02, zDelta + this.motionDirection * platformDistance), this.v, platformSignalTime, platformSignalTime, 0xFFFFFF,
             'vt\'', this.font,
             0);
         });

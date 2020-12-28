@@ -1,5 +1,5 @@
 /* Demonstrates that time is relative */
-import * as THREE from './node_modules/three/build/three.module.js';
+import {Vector3, Quaternion} from './node_modules/three/build/three.module.js';
 import * as GD from './gedanken.js';
 import { begin, narrate } from './common.js';
 
@@ -95,9 +95,9 @@ class TimeIsRelative extends GD.Gedanken {
       1,
       (frame, x, y, z) => {
         frame.dropLightning(
-          new THREE.Vector3(frame.xOffset, y, z), this.c, 0xFF0000);
+          new Vector3(frame.xOffset, y, z), this.c, 0xFF0000);
         frame.dropLightBubble(
-          new THREE.Vector3(frame.xOffset, y, z), this.c, redSignalTime, 0xFF0000, this.playRate, 3, 'Red');
+          new Vector3(frame.xOffset, y, z), this.c, redSignalTime, 0xFF0000, this.playRate, 3, 'Red');
       });
 
     const timeForRedLightningToReachTrainBob = Math.floor(lPlatform / 2 / (this.c + this.v));
@@ -111,9 +111,9 @@ class TimeIsRelative extends GD.Gedanken {
       1,
       (frame, x, y, z) => {
         frame.dropLightning(
-          new THREE.Vector3(frame.xOffset, y, z), this.c, 0xFF0000);
+          new Vector3(frame.xOffset, y, z), this.c, 0xFF0000);
         frame.dropLightBubble(
-          new THREE.Vector3(frame.xOffset, y, z), this.c, redSignalTime, 0xFF0000, this.playRate, 3, 'Red');
+          new Vector3(frame.xOffset, y, z), this.c, redSignalTime, 0xFF0000, this.playRate, 3, 'Red');
       });
 
     this.clicks['Red'] = this.ticksToOrigin + redLightning.t;
@@ -127,9 +127,9 @@ class TimeIsRelative extends GD.Gedanken {
       1,
       (frame, x, y, z) => {
         frame.dropLightning(
-          new THREE.Vector3(frame.xOffset, y, z), this.c, 0x11AAFF);
+          new Vector3(frame.xOffset, y, z), this.c, 0x11AAFF);
         frame.dropLightBubble(
-          new THREE.Vector3(frame.xOffset, y, z), this.c, blueSignalTime, 0x11AAFF, this.playRate, 2, 'Blue');
+          new Vector3(frame.xOffset, y, z), this.c, blueSignalTime, 0x11AAFF, this.playRate, 2, 'Blue');
       });
 
       const timeForBlueLightningToReachTrainBob = Math.floor(lPlatform / 2 / (this.c - this.v));
@@ -144,9 +144,9 @@ class TimeIsRelative extends GD.Gedanken {
       1,
       (frame, x, y, z) => {
         frame.dropLightning(
-          new THREE.Vector3(frame.xOffset, y, z), this.c, 0x11AAFF);
+          new Vector3(frame.xOffset, y, z), this.c, 0x11AAFF);
         frame.dropLightBubble(
-          new THREE.Vector3(frame.xOffset, y, z), this.c, blueSignalTime, 0x11AAFF, this.playRate, 2, 'Blue');
+          new Vector3(frame.xOffset, y, z), this.c, blueSignalTime, 0x11AAFF, this.playRate, 2, 'Blue');
       });
 
     this.clicks['Blue'] = this.ticksToOrigin + blueLightning.t;

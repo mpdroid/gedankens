@@ -1,10 +1,15 @@
 /* Wrapper for the wonderful lightning generator included with the ThreeJS examples*/
 /* Provides Lightning and Light related features */
 
-import * as THREE from './node_modules/three/build/three.module.js';
+import {
+  Vector3, ArrowHelper, ShapeBufferGeometry, MeshBasicMaterial, Mesh, Object3D,
+  DoubleSide,SphereBufferGeometry, BufferGeometry, PointsMaterial, Float32BufferAttribute,
+  Points, Box3
+
+} from './node_modules/three/build/three.module.js';
 import { LightningStrike } from './node_modules/three/examples/jsm/geometries/LightningStrike.js';
 
-class DoubleArrow extends THREE.Object3D {
+class DoubleArrow extends Object3D {
   constructor(origin, left, right, color = 0x00FFFF, label = '', font) {
     super();
     this.font = font;
@@ -12,14 +17,14 @@ class DoubleArrow extends THREE.Object3D {
     let leftdir = left.clone().sub(origin);
     leftdir = leftdir.normalize();
     const leftradius = origin.distanceTo(left);
-    this.leftarrow = new THREE.ArrowHelper(leftdir, origin, leftradius, color, .02, .01);
+    this.leftarrow = new ArrowHelper(leftdir, origin, leftradius, color, .02, .01);
     this.add(this.leftarrow);
 
 
     let rightdir = right.clone().sub(origin);
     rightdir = rightdir.normalize();
     const rightradius = origin.distanceTo(right);
-    this.rightarrow = new THREE.ArrowHelper(rightdir, origin, rightradius, color, .02, .01);
+    this.rightarrow = new ArrowHelper(rightdir, origin, rightradius, color, .02, .01);
     this.add(this.rightarrow);
     let labelPosition = origin.clone();
     labelPosition.y -= .03;
@@ -28,17 +33,17 @@ class DoubleArrow extends THREE.Object3D {
   }
   attachLabel(label, offset, color = 0xFFFFFF) {
     const shapes = this.font.generateShapes(label, 0.03);
-    const textgeometry = new THREE.ShapeBufferGeometry(shapes);
+    const textgeometry = new ShapeBufferGeometry(shapes);
     textgeometry.computeBoundingBox();
     const xMid = - 0.5 * (textgeometry.boundingBox.max.x - textgeometry.boundingBox.min.x);
     const yMid = - 0.5 * (textgeometry.boundingBox.max.y - textgeometry.boundingBox.min.y);
     const zMid = - 0.5 * (textgeometry.boundingBox.max.z - textgeometry.boundingBox.min.z);
     textgeometry.translate(xMid, yMid, zMid);
-    const basic = new THREE.MeshBasicMaterial({
+    const basic = new MeshBasicMaterial({
       color: color,
-      side: THREE.DoubleSide
+      side: DoubleSide
     });
-    const text = new THREE.Mesh(textgeometry, basic);
+    const text = new Mesh(textgeometry, basic);
     text.renderOrder = -5;
     // text.rotation.y = rotation;
     text.rotation.y = Math.PI / 2;
@@ -53,7 +58,7 @@ class DoubleArrow extends THREE.Object3D {
 
 }
 
-class Arrow extends THREE.Object3D {
+class Arrow extends Object3D {
   constructor(origin, target, color = 0xFFFFFF, label = '', font) {
     super();
     this.font = font;
@@ -61,7 +66,7 @@ class Arrow extends THREE.Object3D {
     let dir = target.clone().sub(origin);
     dir = dir.normalize();
     const radius = origin.distanceTo(target);
-    this.arrow = new THREE.ArrowHelper(dir, origin, radius, color, .02, .01);
+    this.arrow = new ArrowHelper(dir, origin, radius, color, .02, .01);
     this.add(this.arrow);
 
 
@@ -75,17 +80,17 @@ class Arrow extends THREE.Object3D {
   }
   attachLabel(label, offset, color = 0xFFFFFF) {
     const shapes = this.font.generateShapes(label, 0.03);
-    const textgeometry = new THREE.ShapeBufferGeometry(shapes);
+    const textgeometry = new ShapeBufferGeometry(shapes);
     textgeometry.computeBoundingBox();
     const xMid = - 0.5 * (textgeometry.boundingBox.max.x - textgeometry.boundingBox.min.x);
     const yMid = - 0.5 * (textgeometry.boundingBox.max.y - textgeometry.boundingBox.min.y);
     const zMid = - 0.5 * (textgeometry.boundingBox.max.z - textgeometry.boundingBox.min.z);
     textgeometry.translate(xMid, yMid, zMid);
-    const basic = new THREE.MeshBasicMaterial({
+    const basic = new MeshBasicMaterial({
       color: color,
-      side: THREE.DoubleSide
+      side: DoubleSide
     });
-    const text = new THREE.Mesh(textgeometry, basic);
+    const text = new Mesh(textgeometry, basic);
     text.renderOrder = -5;
     // text.rotation.y = rotation;
     text.rotation.y = Math.PI / 2;
@@ -99,7 +104,7 @@ class Arrow extends THREE.Object3D {
   }
 }
 
-class LightRay extends THREE.Object3D {
+class LightRay extends Object3D {
   constructor(position, target, offset, lightSpeed = 5, scaleFactor = 0.15, delay = -1, undilated = -1, playRate = 1, color = 0x00FFFF, label = '', font) {
     super();
     // this.scale.multiplyScalar(scaleFactor);
@@ -123,10 +128,10 @@ class LightRay extends THREE.Object3D {
     targetPosition = targetPosition.add(offset);
     let dir = targetPosition.sub(position);
     dir = dir.normalize();
-    this.arrow = new THREE.ArrowHelper(dir, new THREE.Vector3(0, 0, 0), this.radius, color,0.02, 0.02 );
-    // this.bubble = new THREE.Mesh(
-    //   new THREE.SphereBufferGeometry(1, 52, 52),
-    //   new THREE.MeshBasicMaterial({ color: this.color, opacity: 0, transparent: true })
+    this.arrow = new ArrowHelper(dir, new Vector3(0, 0, 0), this.radius, color, 0.02, 0.02);
+    // this.bubble = new Mesh(
+    //   new SphereBufferGeometry(1, 52, 52),
+    //   new MeshBasicMaterial({ color: this.color, opacity: 0, transparent: true })
     // );
     this.add(this.arrow);
     let labelPosition = dir.clone();
@@ -141,7 +146,7 @@ class LightRay extends THREE.Object3D {
     let targetPosition = this.target.position.clone();
     let originPosition = this.position;
     if (this.parent.uuid === this.target.uuid) {
-      targetPosition = new THREE.Vector3(0, 0, 0);
+      targetPosition = new Vector3(0, 0, 0);
     } else {
       targetPosition.sub(this.parent.position);
     }
@@ -163,17 +168,17 @@ class LightRay extends THREE.Object3D {
 
   attachLabel(label, offset, color = 0xFFFFFF) {
     const shapes = this.font.generateShapes(label, 0.03);
-    const textgeometry = new THREE.ShapeBufferGeometry(shapes);
+    const textgeometry = new ShapeBufferGeometry(shapes);
     textgeometry.computeBoundingBox();
     const xMid = - 0.5 * (textgeometry.boundingBox.max.x - textgeometry.boundingBox.min.x);
     const yMid = - 0.5 * (textgeometry.boundingBox.max.y - textgeometry.boundingBox.min.y);
     const zMid = - 0.5 * (textgeometry.boundingBox.max.z - textgeometry.boundingBox.min.z);
     textgeometry.translate(xMid, yMid, zMid);
-    const basic = new THREE.MeshBasicMaterial({
+    const basic = new MeshBasicMaterial({
       color: color,
-      side: THREE.DoubleSide
+      side: DoubleSide
     });
-    const text = new THREE.Mesh(textgeometry, basic);
+    const text = new Mesh(textgeometry, basic);
     text.renderOrder = -5;
     // text.rotation.y = rotation;
     text.rotation.y = Math.PI / 2;
@@ -185,8 +190,8 @@ class LightRay extends THREE.Object3D {
   }
 }
 
-class LightBubble extends THREE.Object3D {
-  constructor(position, lightSpeed = 5, scaleFactor = 0.15, delay = -1, playRate = 1, color = 0x00FFFF, renderOrder = 0, name= '') {
+class LightBubble extends Object3D {
+  constructor(position, lightSpeed = 5, scaleFactor = 0.15, delay = -1, playRate = 1, color = 0x00FFFF, renderOrder = 0, name = '') {
     super();
     this.scale.multiplyScalar(scaleFactor);
     this.color = color;
@@ -198,9 +203,9 @@ class LightBubble extends THREE.Object3D {
     this.bubbleScale = 1;
     this.renderOrder = renderOrder;
     this.clicks = 0;
-    this.bubble = new THREE.Mesh(
-      new THREE.SphereBufferGeometry(this.lightSpeed / scaleFactor, 52, 52),
-      new THREE.MeshBasicMaterial({ color: this.color, opacity: 0.3, transparent: true })
+    this.bubble = new Mesh(
+      new SphereBufferGeometry(this.lightSpeed / scaleFactor, 52, 52),
+      new MeshBasicMaterial({ color: this.color, opacity: 0.3, transparent: true })
     );
     this.bubble.renderOrder = renderOrder;
     this.name = name;
@@ -212,8 +217,8 @@ class LightBubble extends THREE.Object3D {
   update() {
     this.clicks++;
 
-    const ex = Math.exp(this.clicks/10);
-    const decay = ex / (1+ex);
+    const ex = Math.exp(this.clicks / 10);
+    const decay = ex / (1 + ex);
     this.bubble.scale.set(this.clicks, this.clicks, this.clicks);
 
     this.bubble.material.opacity -= 0.0005 * decay;// * this.playRate;
@@ -221,7 +226,7 @@ class LightBubble extends THREE.Object3D {
   }
 }
 
-class Arc extends THREE.Object3D {
+class Arc extends Object3D {
   constructor(position, lightSpeed = 5, scaleFactor = 0.15, startTime = 0, playRate = 1, color = 0x00FFFF, life = 0.5) {
     super();
     this.color = color;
@@ -231,15 +236,15 @@ class Arc extends THREE.Object3D {
     this.meshes = [];
     this.renderOrder = 10;
     this.startTime = startTime;
-    const from = new THREE.Vector3(0, 0, 0);
-    const to = new THREE.Vector3(0, 0.0, 2);
+    const from = new Vector3(0, 0, 0);
+    const to = new Vector3(0, 0.0, 2);
 
     let theta = 0;
     for (let k = 0; k < 2; k++) {
       theta += 2 * Math.PI / 2;
       const strike = new LightningStrike({
-        sourceOffset: new THREE.Vector3(0, 0, 0),
-        destOffset: new THREE.Vector3(2 * Math.cos(theta), 0.5, 2 * Math.sin(theta)),
+        sourceOffset: new Vector3(0, 0, 0),
+        destOffset: new Vector3(2 * Math.cos(theta), 0.5, 2 * Math.sin(theta)),
         radius0: .3,
         radius1: .3,
         isEternal: false,
@@ -251,9 +256,9 @@ class Arc extends THREE.Object3D {
         vanishingTimeFactor: .9,
         maxIterations: 5
       });
-      const light = new THREE.Mesh(
+      const light = new Mesh(
         strike,
-        new THREE.MeshBasicMaterial({ color: this.color })
+        new MeshBasicMaterial({ color: this.color })
       );
       this.strikes.push(strike);
       this.meshes.push(light);
@@ -274,7 +279,7 @@ class Arc extends THREE.Object3D {
 }
 
 
-class Lightning extends THREE.Object3D {
+class Lightning extends Object3D {
   constructor(position, lightSpeed = 5, scaleFactor = 0.15, startTime = 0, color = 0x00FFFF, life = 0.5, height = 20) {
     super();
     this.color = color;
@@ -284,8 +289,8 @@ class Lightning extends THREE.Object3D {
     this.meshes = [];
     this.renderOrder = 10;
     this.startTime = startTime;
-    const from = new THREE.Vector3(0, 0, 0);
-    const to = new THREE.Vector3(0, height, 0);
+    const from = new Vector3(0, 0, 0);
+    const to = new Vector3(0, height, 0);
     const strike = new LightningStrike({
       sourceOffset: from,
       destOffset: to,
@@ -299,9 +304,9 @@ class Lightning extends THREE.Object3D {
       vanishingTimeFactor: .9,
       maxIterations: 5
     });
-    const light = new THREE.Mesh(
+    const light = new Mesh(
       strike,
-      new THREE.MeshBasicMaterial({ color: this.color })
+      new MeshBasicMaterial({ color: this.color })
     );
     this.strikes.push(strike);
     this.meshes.push(light);
@@ -321,7 +326,7 @@ class Lightning extends THREE.Object3D {
 }
 
 // Based on https://aerotwist.com/tutorials/creating-particles-with-three-js/
-class ParticleCloud extends THREE.Object3D {
+class ParticleCloud extends Object3D {
   constructor(position, lightSpeed = 5, scaleFactor = 0.15, delay = -1, playRate = 1, color = 0x00FFFF) {
     super();
     this.scale.multiplyScalar(scaleFactor);
@@ -337,7 +342,7 @@ class ParticleCloud extends THREE.Object3D {
 
     const particleCount = 1000;
     const vertices = [];
-    const pMaterial = new THREE.PointsMaterial({
+    const pMaterial = new PointsMaterial({
       color: this.color,
       size: .01
       // ,transparent: true,
@@ -355,10 +360,10 @@ class ParticleCloud extends THREE.Object3D {
 
       vertices.push(x, y, z);
     }
-    const geometry = new THREE.BufferGeometry();
-    geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+    const geometry = new BufferGeometry();
+    geometry.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    this.particleSystem = new THREE.Points(
+    this.particleSystem = new Points(
       geometry,
       pMaterial);
 
@@ -370,8 +375,8 @@ class ParticleCloud extends THREE.Object3D {
 
   update() {
     this.clicks++;
-    const box = new THREE.Box3().setFromObject(this.particleSystem);
-    const target = new THREE.Vector3();
+    const box = new Box3().setFromObject(this.particleSystem);
+    const target = new Vector3();
     box.getSize(target)
     let width = target.y;
     this.bubbleScale = (width + this.lightSpeed * 2) / width;

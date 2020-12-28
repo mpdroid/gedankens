@@ -1,5 +1,14 @@
 /* Tests Lightning and Light Bubble */
-import * as THREE from './node_modules/three/build/three.module.js';
+import {Scene, PerspectiveCamera,
+  WebGLRenderer,
+  DirectionalLight,PointLight,
+  Vector3,
+  Mesh,
+  PlaneBufferGeometry,
+  GridHelper,
+  ShadowMaterial,
+  Clock
+}  from './node_modules/three/build/three.module.js';
 import {Lightning, LightBubble} from './lightning.js';
 
 let clock;
@@ -23,13 +32,13 @@ let state = {
 function initScene() {
     document.body.style.visibility = 'visible';
 
-    scene = new THREE.Scene();
+    scene = new Scene();
 
-    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.x = 0;
     camera.position.y =20;
     camera.position.z = 0;
-    // camera.lookAt(new THREE.Vector3(0, 0,20));
+    // camera.lookAt(new Vector3(0, 0,20));
 
     const container = document.getElementById('threeContainer');
     if (!container) {
@@ -38,13 +47,13 @@ function initScene() {
 
     const dimensions = container.getBoundingClientRect();
 
-    renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer = new WebGLRenderer({ antialias: true });
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     container.appendChild(renderer.domElement);
 
 
-    const dirLight = new THREE.DirectionalLight(0xffffff, 1);
+    const dirLight = new DirectionalLight(0xffffff, 1);
     dirLight.position.set(20, 30, 20);
     dirLight.castShadow = true;
     dirLight.shadow.camera.near = 1;
@@ -60,9 +69,9 @@ function initScene() {
     scene.add(dirLight);
 
     lights = [];
-    lights[0] = new THREE.PointLight(0xffffff, 1, 0);
-    lights[1] = new THREE.PointLight(0xffffff, 1, 0);
-    lights[2] = new THREE.PointLight(0xffffff, 1, 0);
+    lights[0] = new PointLight(0xffffff, 1, 0);
+    lights[1] = new PointLight(0xffffff, 1, 0);
+    lights[2] = new PointLight(0xffffff, 1, 0);
 
     lights[0].position.set(0, 200, 0);
     lights[1].position.set(100, 200, 100);
@@ -72,27 +81,27 @@ function initScene() {
     scene.add(lights[1]);
     scene.add(lights[2]);
 
-    const scale = new THREE.Vector3(1, 1, 1);
+    const scale = new Vector3(1, 1, 1);
     scale.x *= -1;
 
-    const ground = new THREE.Mesh(
-        new THREE.PlaneBufferGeometry(1000, 1000, 100, 100),
-        new THREE.ShadowMaterial({ opacity: 1 })
+    const ground = new Mesh(
+        new PlaneBufferGeometry(1000, 1000, 100, 100),
+        new ShadowMaterial({ opacity: 1 })
     );
 
     ground.rotation.x = - Math.PI / 2; // rotates X/Y to X/Z
     ground.receiveShadow = true;
     scene.add(ground);
 
-    const helper = new THREE.GridHelper(1000, 100);
+    const helper = new GridHelper(1000, 100);
     helper.material.opacity = 1;
     scene.add(helper);
 
 
 
-    const lightningPosition = new THREE.Vector3(0, 20, -20);
+    const lightningPosition = new Vector3(0, 20, -20);
     const lightSpeed = 0.05;
-    clock = new THREE.Clock();
+    clock = new Clock();
     lightning = new Lightning(lightningPosition, lightSpeed, 0.5, 0, 0x00FFFF, 2, 10);
     bubble = new LightBubble(lightningPosition, lightSpeed, 1);
     scene.add(lightning);

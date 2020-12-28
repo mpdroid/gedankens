@@ -1,5 +1,5 @@
 /* Introduces Special Relativity and the gedankens*/
-import * as THREE from './node_modules/three/build/three.module.js';
+import {Vector3} from './node_modules/three/build/three.module.js';
 import * as GD from './gedanken.js';
 import { beginMultiple, narrate } from './common.js';
 
@@ -115,9 +115,9 @@ class MeetTheBobs extends GD.Gedanken {
     this.platformFrameInPlatformView.addEvent(GD.TRAIN_LENGTH / 1.5, 0, this.motionDirection * GD.TRAIN_LENGTH / 2, ticksToLightning, 1,
       (frame, x, y, z) => {
         frame.dropLightning(
-          new THREE.Vector3(x, y, z), this.c, 0x00CCFF);
+          new Vector3(x, y, z), this.c, 0x00CCFF);
         frame.dropLightBubble(
-          new THREE.Vector3(x, y, z), this.c, -1, 0x11AAFF, this.playRate, 1);
+          new Vector3(x, y, z), this.c, -1, 0x11AAFF, this.playRate, 1);
       });
 
 
