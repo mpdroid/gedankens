@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Gedanken-Experiments for Special Theory of Relativity</title>
+  <meta title="Gedanken-Experiments for Special Theory of Relativity" />
+  <meta name="Keywords"
+    content="Relativity, Special Theory, Gedanken, Gedanken-Experiments, THREE, THREE.js, gedaclock" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="dev@lemmaplay.com">
+  <meta property="og:title" content="Gedanken-Experiments for Special Theory of Relativity" />
+  <meta property="og:site_name" content="gedankens" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mpdroid.github.io/gedankens/" />
+  <meta property="og:image" content="https://mpdroid.github.io/gedankens/assets/gedaclock.png" />
+  <meta name="description" content="Thought experiments to understand Special Relativity" />
+  <meta property="og:description" content="Thought experiments to understand Special Relativity" />
+  <link href="../assets/gedaclock.png" rel="shortcut icon" type="image/png">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script>
+    var isIntExp = /*@cc_on!@*/ false || !!document.documentMode;
+    if (isIntExp) {
+      window.location.href = "error.html";
+    }
+  </script>
+  <script type="application/ld+json">
+          {
+            "@context": "http://schema.org",
+            "@type": "Organization",
+            "url": "http://www.gedankens.com",
+            "logo": "https://mpdroid.github.io/gedankens/assets/gedaclock.png"
+          }
+        </script>
+  <link type="text/css" rel="stylesheet" href="main.css">
+</head>
+
+<body>
+  <script type="module" src="lorentz.js"></script>
+  <div id="three">
+    <div id="platformIrf">
+    </div>
+    <div id="trainIrf">
+    </div>
+  </div>
+  <div id="mainContainer">
+    <div id="header">
+      <div id="topnav">
+        <a class="material-icons" href="index.html">home</a>
+        <div class="selected">Special Relativity: Lorentz transformations</div>
+        <a class="material-icons" href="https://github.com/mpdroid/gedankens" target="_blank">code</a>
+      </div>
+      <div id="principle">Spacetime coordinates of an event on a moving frame is a linear combination
+        of their coordinates in a resting frame.</div>
+      <div id="narrated"></div>
+    </div>
+    <div id="footer">
+      <div id="controls">
+        <div class="row tooltip">
+          <div class="label tooltip">
+            <span class="tooltiptext">Lower the ratio to increase relativistic effects</span>
+            Speed Ratio (c/v)
+          </div>
+          <div class="range"><input type="range" min="1" max="3" value="1.25" step="0.01" id="lightSpeed"
+              class="slider">
+          </div>
+          <div class="value"><span id="lightSpeedValue">1.25</span>
+          </div>
+        </div>
+      </div>
+      <div id="theory">
+        <p>The Lorentz transformation equations help make sense of this situation. With these equations and given the
+          lengths, time intervals and event coordinates on the platform, we can compute their values as measured on
+          the train (and vice versa).
+          $$
+          \begin{array}{rl}
+          x'&amp;= \gamma(x - vt)\\[6pt]
+          t'&amp;= \gamma(t - \frac{v}{c^2}x)\\[6pt]
+          y'&amp;= y\\[6pt]
+          z'&amp;= z\\[6pt]
+          \text{where, }\\
+          \gamma &amp; = \frac{1}{\sqrt{1 - \frac{v^2}{c^2}}}\\
+          \text{and, }\\
+          &amp; (x',y',z',t')\text{ and }(x,y,z,t)\text{ are the spacetime coordinates on train and platform.}\\
+          \end{array}
+          $$
+        </p>
+        <p>Note that above equations are valid only when relative motion is along the x-axis. The general
+          transformations for motion along all three axes require a deeper discussion and left out of scope.</p>
+
+        <p>We now proceed to derive these equations using a few mini-gedankens. This derivation is mostly based on <a
+            href="https://press.princeton.edu/books/hardcover/9780691166339/relativity" target="_blank">Einstein's
+            booklet</a>, with some extras for clarity.</p>
+
+        <p><b>Derivation of Lorentz Transformations</b></p>
+        <p>Let us attach coordinate systems named $K$ and $K'$ to the platform and train respectively. As the train is
+          moving at a constant velocity $v$ past the platform, these systems are also called inertial reference frames
+          (or just frames, from here on). Let the origin of $K'$ be at the center of the train, and the origin of $K$ be
+          at the center of the
+          platform.</p>
+        <p>At the exact instant when the two Bobs pass each other, let their clocks be set to 0.</p>
+        <p>When Bob's are together at this common origin point, lightning flashes at a distance $x$ and height $y$ from
+          the center of the platform ($z = 0$). Let us say it takes light to travel $t$ ticks on the platform clock
+          to reach Train-Bob. Let us name this event "light reaches Train-Bob" as $E$.
+          So the coordinates of $E$ on the platform are $(x,y,z,t)$. The same event "light reaches Train-Bob" appear
+          as $E'$ on the train with coordinates $(x',y',z',t')$, where $t'$ is the number of ticks on the train clock.
+        </p>
+        <p>Given this context, we can complete the derivation in four steps:
+        <ol>
+          <li>Establish linearity. State the equations for each coordinate of $E'$ in the form $x'=f(x,y,z,t)$, $y' =
+            g(x,y,z,t)$ and so on, where $f$, $g$ etc. are simple linear equations.</li>
+          <li>Analyze the motion of the origin of the Train frame.</li>
+          <li>Analyze how unit lengths are transformed between frames.</li>
+          <li>Replace the coefficients in the equations from step 1 with values obtained in steps 2 and 3 to arrive at
+            the final equations.</li>
+        </ol>
+        </p>
+        <p><b>Step 1 : State the transformations in linear form </b></p>
+        <div class="derivation-section">
+          <p>The lightning occurs at point $(x,y,z)$ in space and light takes $t$ ticks of a clock to reach
+            T-Bob. The distance travelled by the light is the radial distance $ct$ from event to T-Bob, so:
+            $$
+            (ct)^2 = x^2 + y^2 + z^2$$</p>
+          <p>$z$ is known to be 0, so:
+            $$z' = z = 0 \implies (ct)^2 = x^2 + y^2$$ </p>
+          <p>As observed from the train, the platform is moving away in the negative $x$ direction. The lightning
+            occurs at $(x',y')$ and light from it has to travel a distance $ct' > ct$ to reach T-Bob. Note again, that
+            speed of light is constant for both frames.
+            As $ct'$ is the radial distance from $(x',y')$ to T-Bob (as observed from the train), we have:
+            $$(ct')^2 = (x')^2 + (y')^2$$</p>
+          <p>Motion along the $x$-axis does not cause any changes to lengths on the $y$-axis. Based on
+            this we have:
+            $$
+            y = y'\\[6pt]
+            (ct)^2 - x^2 = y^2 = y'^2 = (ct')^2 - (x')^2$$
+          </p>
+          <p>This equality holds true (or is invariant) for any position of lightning and any position of T-Bob
+            along the
+            x-axis on the train, as should be apparent from the mini-gedanken below:</p>
+          <div id="lightPath">
+            <div id="platformLightPath"></div>
+              <div id="trainLightPath">
+              </div>
+          </div>
+          <p>
+            The quantity $c^2t^2 - x^2$ (rather its three dimensional version $c^2t^2 - x^2 - y^2 -z^2$ is called the <a
+              href="https://phys.libretexts.org/Courses/University_of_California_Davis/UCD%3A_Physics_9HB__Special_Relativity_and_Thermal_Statistical_Physics/2%3A_Kinematics_and_Dynamics/2.1%3A_Spacetime_Diagrams"
+              target="_blank">spacetime interval</a> between events and remains the same in every inertial reference
+            frame.
+          </p>
+          <p>Given the invariant nature of spacetime interval between reference frames, the story progresses as below:</p>
+            $$
+            \begin{array}{lrll}
+            &amp;(ct)^2 - x^2 &amp;= (ct')^2 - (x')^2\\[6pt]
+            &amp;(ct - x)(ct + x) &amp;= (ct' - x')(ct' + x')\\[12pt]
+            \text{When $x$ $\neq$ $\pm$$ct$, }\\[6pt]
+            &amp;(ct - x)/(ct' - x') &amp;= (ct' + x')/(ct+x)&amp; = A \text{ (some constant)}\\[12pt]
+            \text{With algebra,}\\[6pt]
+            &amp;ct' &amp;= \frac{(1 + A^2 )}{2A}ct - \frac{(1 - A^2)}{2A}x&amp;\ldots (1) \\[6pt]
+            &amp;x' &amp;= \frac{(1 + A^2)}{2A}x - \frac{(1 - A^2)}{2A}ct &amp;\ldots (2) \\[6pt]
+            \end{array}
+            \\[6pt]
+            \begin{array}{lrll}
+            \text{(1) and (2) can be restated as,}\\[6pt]
+            &amp;x' &amp;= ax - bct &amp; \ldots (3)\\[6pt]
+            &amp;ct' &amp;= act - bx &amp; \ldots (4)\\[6pt]
+            \text{where,}\\[6pt]
+            &amp;a &amp;= \frac{(1 + A^2)}{2A}\\[6pt]
+            &amp;b &amp;= \frac{(1 - A^2 )}{2A}\\[6pt]
+            \text{and from the givens,}\\[6pt]
+            &amp;y' &amp;= x &amp; \\[6pt]
+            &amp;z' &amp;= z &amp;
+            \end{array}
+            $$
+            $$
+            \text{When $x$ $=$ $\pm$$ct$, we can substitute $x$ in (3) and (4) and confirm that linearity holds. }
+            $$
+        </div>
+        <p></p>
+        <p><b>Step 2 : Motion at the origin of the Train reference frame</b></p>
+        <div class="derivation-section">
+          <p>
+            For the origin of $K'$, $x' = 0$. Substituting this in (3) we get:</p>
+          <div id="maxwell">
+            $$
+            \begin{array}{lrll}
+            &amp;ax - bct &amp;= 0&amp;\\
+            &amp;x &amp;= ({bc}/{a})t &amp; \ldots (5)
+            \end{array}
+            $$
+          </div>
+          <p>Note that the origin of $K'$ is the center of the train, which is moving with velocity $v$ relative to the
+            center of the platform. So $x = vt$.</p>
+          <div id="maxwell">
+            $$
+            \begin{array}{lrll}
+            \text{Hence,}&amp;\\
+            &amp; v &amp;= {{bc}/{a}}&amp; \\[6pt]
+            &amp;b/a &amp;= v/c&amp;\ldots (6)
+            \end{array}
+            $$
+          </div>
+
+        </div>
+        <p></p>
+        <p><b>Step 3 : Transformation of unit lengths</b></p>
+        <div class="derivation-section">
+          <p>Let us take a snapshot of the train from the platform at a moment in time, say $t = 0$. Substituting $t=0$
+            in (3), we get:</p>
+          <div id="maxwell">
+            $$
+            \begin{array}{lrl}
+            &amp; &amp;x' =&amp; ax\\[6pt]
+            &amp;&amp;x=&amp;{x'}/{a}\ldots(7)
+            \end{array}
+            $$
+          </div>
+          <p>This means that a unit length on the train is measured as $1/a$ units from the platform.</p>
+          <p>Now, let us take a snapshot of the platform from the train at time $t' = 0$. Substituting $t' = 0$ in (4)
+            we get:</p>
+          <div id="maxwell">
+            $$
+            \begin{array}{lrll}
+            &amp;act - bx&amp;= 0\\[6pt]
+            &amp;t &amp;=(b/ac)x &amp; \ldots(8)
+            \end{array}
+            $$
+          </div>
+          <p>The symmetry in length contraction is depicted below:</p>
+          <div id="unitLength">
+            <div id="platformUnitLength">
+            </div>
+            <div id="trainUnitLength">
+            </div>
+          </div>
+          <p>Substituting $t$ from (8), $b/a$ from (6), into (3):</p>
+          <div id="maxwell">
+            $$
+            \begin{array}{lrll}
+            &amp;x' &amp;= ax - bc(\frac{b}{ac})x\\
+            &amp;&amp;= ax - \frac{b^2}{a}x\\
+            &amp;&amp;= a(1 - \frac{b^2}{a^2})x\\
+            &amp;&amp;= a(1 - \frac{v^2}{c^2})x &amp; \ldots(9)
+            \end{array}
+            $$
+          </div>
+          <p>This means that a unit length on the platform is measured as $a(1 - \frac{v^2}{c^2})$ from the train.</p>
+          <p>According to the classical principle of relativity, the two reference frames are equivalent. So a unit
+            length on the train as seen from the platform should be the same as a unit length on the platform as seen
+            from the train. So equating (7) and (9) we get:</p>
+          <div id="maxwell">
+            $$
+            \begin{array}{lrll}
+            &amp;1/a&amp; = a(1 - \frac{v^2}{c^2})\\
+            \text{or, }\\
+            &amp;a &amp;= \frac{1}{\sqrt{1 - \frac{v^2}{c^2}}} = \gamma &amp; \ldots(10)
+            \end{array}
+            $$
+          </div>
+          <p>
+            Note that $a$ is the same $\gamma$ that we derived in the <a href="length-transformation">length
+              transformation</a> experiment. </p>
+          <p>
+            Substituting $\gamma$ from (10) into (6):</p>
+          <div id="maxwell">
+            $$
+            \begin{array}{lrll}
+            &amp;b&amp; = \gamma{v}/{c} &amp; \ldots(11)
+            \end{array}
+            $$
+          </div>
+        </div>
+
+        <p><b>Step 4 : Replace coefficients</b></p>
+        <div class="derivation-section">
+          Putting $a$ and $b$ into (3) and (4), we get the Lorentz transformations for relative motion
+            along the x-axis:
+          <div id="maxwell">
+            $$
+            \begin{array}{llc}
+            x'&amp; = \gamma(x - vt) &amp; \ldots (12)\\
+            y'&amp; = y &amp;\ldots (14)\\
+            z'&amp; = z &amp;\ldots (15)\\
+            t'&amp; = \gamma(t - \frac{v}{c^2}x) &amp; \ldots (13)
+            \end{array}
+            $$
+          </div>
+        </div>
+        <p><b>That is all for now. Watch this space for more gedanken-action on spacetime and gravity.</b></p>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div id="bottomnav">
+    <a href="length-contraction.html"><span class="material-icons">arrow_left</span>Length contraction</a>
+    <div class="fake-link-em"><span class="material-icons">stop</span></div>
+  </div>
+
+</body>
+
+</html>

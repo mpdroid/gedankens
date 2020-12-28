@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Gedanken-Experiments for Special Theory of Relativity</title>
+  <meta title="Gedanken-Experiments for Special Theory of Relativity" />
+  <meta name="Keywords" content="Relativity, Special Theory, Gedanken, Gedanken-Experiments, THREE, THREE.js" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="dev@lemmaplay.com">
+  <meta property="og:title" content="Gedanken-Experiments for Special Theory of Relativity" />
+  <meta property="og:site_name" content="gedankens" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mpdroid.github.io/gedankens/" />
+  <meta property="og:image" content="https://mpdroid.github.io/gedankens/assets/gedaclock.png" />
+  <meta name="description" content="Thought experiments to understand Special Relativity" />
+  <meta property="og:description" content="Thought experiments to understand Special Relativity" />
+  <link href="../assets/gedaclock.png" rel="shortcut icon" type="image/png">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script>
+    var isIntExp = /*@cc_on!@*/ false || !!document.documentMode;
+    if (isIntExp) {
+      window.location.href = "error.html";
+    }
+  </script>
+  <script type="application/ld+json">
+          {
+            "@context": "http://schema.org",
+            "@type": "Organization",
+            "url": "http://www.gedankens.com",
+            "logo": "https://mpdroid.github.io/gedankens/assets/gedaclock.png"
+          }
+        </script>
+  <link type="text/css" rel="stylesheet" href="main.css">
+</head>
+
+<body>
+  <script type="module" src="constant-c.js"></script>
+  <div id="three">
+    <div id="platformIrf"></div>
+    <div id="trainIrf"></div>
+  </div>
+  <div id="mainContainer">
+    <div id="header">
+      <div id="topnav">
+        <a class="material-icons" href="index.html">home</a>
+        <div class="selected">Special Relativity: Speed of light in vacuum</div>
+        <a class="material-icons" href="https://github.com/mpdroid/gedankens" target="_blank">code</a>
+      </div>
+      <div id="principle">The speed of light in vacuum is constant regardless of the motion of the
+        light source or the observer.</div>
+      <div id="narrated"></div>
+      <div id="controls">
+        <div class="row tooltip">
+          <div class="label tooltip">
+            <span class="tooltiptext">Lower the ratio to increase relativistic effects</span>
+            Speed Ratio (c/v)
+          </div>
+          <div class="range"><input type="range" min="1" max="3" value="1.25" step="0.01" id="lightSpeed"
+              class="slider">
+          </div>
+          <div class="value"><span id="lightSpeedValue">1.25</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="footer">
+      <div id="theory">
+        <p>Both Bobs see the lightning at the same time, and experience a light bubble radiating
+          out at the speed of light. </p>
+        <p>
+          But, counter to our intuition, even though lightning actually struck the platform, Train-Bob's light bubble
+          stays centered a few feet in front of him. In
+          contrast, the dust cloud, behaving as expected, remains centered on (and
+          moves away with) Platform-Bob. </p>
+        <p>So one event, one dust cloud, but two light bubbles. How come?</p>
+        <ol>
+          <li>As early as 1676, based on celestial observations, good <a
+              href="https://pwg.gsfc.nasa.gov/stargaze/Sun4Adop1.htm" target="_blank">Ole Roemer</a> figured out that
+            the
+            speed of light was finite. He provided an estimate that was accurate in the order of magnitude. Over the
+            centuries, his initial estimate was refined to its presently accepted value of $3 \times
+            10^8 m/s$.</li>
+          <li>Around 1865, Maxwell laid down the equations of electromagnetism, one of which is:
+            <div id="maxwell">
+              $$
+              \nabla \times B = \mu_{0}{J} + \mu_{0}\epsilon_{0}\frac{\partial{E}}{\partial{t}}\\
+              $$
+              where,<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;$ \nabla \times B $ is the 'curl' of a magnetic field,<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;$ J $ is the density of a current in the neighborhood,<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;$ {\partial{E}}/{\partial{t}} $ is the rate of change of an electric field in
+              the same hood,<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;$ \mu_{0} $ is the magnetic permeability of vacuum, a constant and <br>
+              &nbsp;&nbsp;&nbsp;&nbsp;$ \epsilon_{0} $ is the electrical permittivity of vacuum, also a
+              constant.<br><br>
+            </div>
+            In English, this states that a magnetic field can be produced by an electric current OR by motion of a
+            conductor through an electric field OR both. Of specific note is the product of the constants $\mu_{0}\text{
+            and }\epsilon_{0}$. ${1}/\sqrt{\mu_{0}\epsilon_{0}}$
+            is equal to the speed of light in vacuum. As ${1}/\sqrt{\mu_{0}\epsilon_{0}}$ was quite a mouthful,
+            physicists
+            started referring to this as $c$ -
+            speed of light in vacuum.
+          </li>
+          <li>Popular readings on relativity quote the <a
+              href="http://galileoandeinstein.physics.virginia.edu/lectures/michelson.html" target="_blank">Michelson
+              Morley experiment (MMX)</a> as the basis for constant
+            $c$. However (to me) that only confirms part of the story i.e. $c$ is constant in all directions for one
+            observer with their own light source.</li>
+          <li>Einstein himself refers to <a href="http://www.shadetreephysics.com/desit-1e.htm"
+              target="_isblank">William De Sitter's observations</a> on light from Double Stars as evidence that $c$
+            does not depend on the relative motion of light source or observer.</li>
+        </ol>
+        <p>The point of this long walk is to establish that $c$ is constant in the laws of physics, based on practical
+          observations as well as theory. According to the classical principle of relativity, the laws of physics apply
+          equally for all observers in constant motion relative to each other. Therefore, $c$ must be constant for all
+          such observers.</p>
+        <p>Let us apply this knowledge to make sense of our gedanken. First the 4Ws:
+        <ul>
+          <li>What happened? Lightning struck the platform. A cloud of dust was kicked up.</li>
+          <li>Who was watching? Train-Bob and Platform-Bob</li>
+          <li>Where did it happen? At the origin ($x = 0$) of Platform-Bob's reference frame($K$) and (almost) at the
+            origin($x' = 0$) of Train-Bob's reference frame ($K'$).</li>
+          <li>When did it happen? At the exact moment of crossing ($t=0$ on the platform). If time were universal (as it
+            was thought to be, before Einstein), then time on the train would also be $t$.</li>
+        </ul>
+        </p>
+        <p>
+          Once emitted, light from the lightning strike, must travel at the same speed to all points to the left and
+          right of each Bob in their own frame of reference. So each Bob must get their own light bubble, that follows a
+          set of equations dictated by the principle of relativity.
+        <ul>
+          <li>On the platform, the dust cloud remains at $x=0$, the train is moving away with $x = -vt$, and the light
+            bubble is radiating out with $x={\pm}ct$. </li>
+          <li>On the train, the dust cloud and platform should move away at $x'=vt$ and $x'=vt$. Light should radiate
+            out at $x'=vt{\pm}ct$ according to the classical principle of relativity, but per the requirement of
+            constant $c$, it should radiate at $x'={\pm}ct$.</li>
+          <li>As $ct$ cannot be equal to $vt{\pm}ct$, except at the origin $t=0$, Einstein proposed that time progresses
+            differently on the train as compared to the platform i.e. at $t'{\neq}t$.</li>
+          <li>This allows us to restate the train frame equations of motion as, $x' = vt'$ for dust cloud and platform,
+            and $x' = {\pm}ct'$ for light bubble, allowing $ct'{\neq}vt{\pm}ct$.</li>
+          <li>We explore this notion of time being different for observers and their reference frames in the next
+            section.</li>
+        </ul>
+        </p>
+        </p>
+        </ul>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div id="bottomnav">
+    <a href="index.html"><span class="material-icons">arrow_left</span>Home</a>
+    <a href="ros.html">Relativity of Simultaneity<span class="material-icons">arrow_right</span></a>
+  </div>
+</body>
+
+</html>
