@@ -59,7 +59,6 @@ const camera = new PerspectiveCamera(55, aspect, 0.01, 5);
 // place the camera near the platform at an offset
 // so you can see the perspective effect
 camera.position.set(.75, 0.3, 1);
-// camera.position.set(0, 0.3, 0);
 camera.lookAt(platform.position);
 
 
