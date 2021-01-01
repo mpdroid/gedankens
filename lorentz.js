@@ -1,6 +1,6 @@
 
 /* Shows how lorentz transformations work */
-import {Vector3, Quaternion} from './node_modules/three/build/three.module.js';
+import { Vector3, Quaternion } from './node_modules/three/build/three.module.js';
 import * as GD from './gedanken.js';
 import { begin, beginMultiple, narrate } from './common.js';
 
@@ -170,8 +170,8 @@ class Lorentz extends GD.Gedanken {
           new Vector3(frame.xOffset, y, z), this.c, redSignalTime, 0xFF0000, this.playRate, 3, 'Red');
       });
 
-    this.clicks['Red'] =  0;
-    this.clicksPrime['Red'] =   redEmitTimeInTrainView ;
+    this.clicks['Red'] = 0;
+    this.clicksPrime['Red'] = redEmitTimeInTrainView;
 
 
 
@@ -194,15 +194,15 @@ class Lorentz extends GD.Gedanken {
   showLightningBolts() {
     for (let bubble of this.trainFrameInTrainView.lightBubbles) {
       if (bubble.clicks === bubble.delay) {
-        const msg =  bubble.name + ' lightning struck at ' + 
-        this.clicksPrime[bubble.name] + ' ticks from rendezvous';
+        const msg = bubble.name + ' lightning struck at ' +
+          this.clicksPrime[bubble.name] + ' ticks from rendezvous';
         this.attachMessage(this.trainFrameInTrainView, msg, 2 * Math.PI);
       }
     }
     this.platformFrameInPlatformView.lightBubbles.forEach((bubble) => {
       if (bubble.clicks === bubble.delay) {
-        const msg =  bubble.name + ' lightning struck at ' + 
-        this.clicks[bubble.name] + ' ticks from rendezvous';
+        const msg = bubble.name + ' lightning struck at ' +
+          this.clicks[bubble.name] + ' ticks from rendezvous';
         this.attachMessage(this.trainFrameInPlatformView, msg, 2 * Math.PI);
       }
     });
@@ -297,7 +297,7 @@ class UnitLengths extends GD.Gedanken {
   }
 
   updateLightSpeed(cbyv) {
- 
+
     // do nothing in this class
 
   }
@@ -424,7 +424,7 @@ class LightPath extends GD.Gedanken {
     const redDistanceToTrainBobInTrainView = xToPrime(redDistanceToTrainBobInPlatformView, redTimeToReachTrainBobInPlatformView);
     const redTimeToReachTrainBobInTrainView = tToPrime(redDistanceToTrainBobInPlatformView, redTimeToReachTrainBobInPlatformView);
     const redEmitTimeInTrainView = redTimeToReachTrainBobInTrainView - redSignalTime;
-    
+
     const redPlatform = this.platformFrameInPlatformView.addEvent(
       -0.03, 0.3,
       this.motionDirection * P / 2,
@@ -432,8 +432,15 @@ class LightPath extends GD.Gedanken {
       1,
       (frame, x, y, z) => {
         frame.dropArc(
-          new Vector3(frame.xOffset, 0.3, z), this.c, 0xFF0000, 1, 3);
+          new Vector3(frame.xOffset, 0.3, z), this.c, 0xFF0000, 1, 4);
 
+
+      });
+
+     this.platformFrameInPlatformView.addEvent(
+      -0.03, 0.3,
+      this.motionDirection * P / 2, redTimeToReachTrainBobInPlatformView, 1,
+      (frame, x, y, z) => {
         frame.addArrow(new Vector3(frame.xOffset, y, z),
           new Vector3(frame.xOffset, 0, 0 + redDistanceToTrainBobInPlatformView),
           0xFFFFFF, 'ct', this.font, 0);
@@ -445,13 +452,16 @@ class LightPath extends GD.Gedanken {
           new Vector3(frame.xOffset, y, z), new Vector3(frame.xOffset, 0, z),
           0xFFFFFF, 'y = y\'', this.font, 0);
 
-      });
-
-    const stopMotion = this.platformFrameInPlatformView.addEvent(
-      0, 0, 0, redTimeToReachTrainBobInPlatformView, 1,
-      (frame, x, y, z) => { this.animating = false; }
+      }
     );
 
+    this.platformFrameInPlatformView.addEvent(
+      0, 0,
+      0, redTimeToReachTrainBobInPlatformView, 1,
+      (frame, x, y, z) => {
+        this.animating = false;
+      }
+    );
 
     const redTrain = this.trainFrameInTrainView.addEvent(
       0.03, 0.3,
@@ -460,19 +470,27 @@ class LightPath extends GD.Gedanken {
       1,
       (frame, x, y, z) => {
         frame.dropArc(
-          new Vector3(frame.xOffset, 0.3, z), this.c, 0xFF0000, 1, 3);
+          new Vector3(frame.xOffset, 0.3, z), this.c, 0xFF0000, 1, 4);
 
+      });
+
+    this.trainFrameInTrainView.addEvent(
+      0.03, 0.3,
+      redPlatform.z, redTimeToReachTrainBobInTrainView, 1,
+      (frame, x, y, z) => {
         frame.addArrow(new Vector3(frame.xOffset, y, z),
-          new Vector3(frame.xOffset, 0, 0 ),
+          new Vector3(frame.xOffset, 0, 0),
           0xFFFFFF, 'ct\'', this.font, 0);
 
         frame.addArrow(
-          new Vector3(frame.xOffset, y, z), new Vector3(frame.xOffset, y, 0 ),
+          new Vector3(frame.xOffset, y, z), new Vector3(frame.xOffset, y, 0),
           0xFFFFFF, 'x\'', this.font, 0);
         frame.addArrow(
           new Vector3(frame.xOffset, y, z), new Vector3(frame.xOffset, 0, z),
           0xFFFFFF, 'y\' = y', this.font, 0);
-      });
+
+      }
+    );
 
 
   }
