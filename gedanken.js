@@ -15,7 +15,7 @@ import {Scene, PerspectiveCamera,
   MeshPhongMaterial,
   DoubleSide,FrontSide, BackSide,
   MeshBasicMaterial,
-  Color,
+  Color
 // }  from './node_modules/three/build/three.module.js';
 }  from 'https://unpkg.com/three/build/three.module.js';
 import { Bob } from './bob.js';
@@ -474,11 +474,11 @@ class Camera extends PerspectiveCamera {
 
 class Gedanken {
 
-  introduction = '';
 
   constructor(font, distanceInTrainLengths = 2, applyGamma = false, containerId = 'Irf', showLengths = false, numIntervals = 5, initialDistanceFactor = 1,
     v = 0.0025, cByv = 1.25
   ) {
+    this.introduction = '';
     this.font = font;
     this.applyGamma = applyGamma;
     this.showLengths = showLengths;
