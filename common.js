@@ -62,6 +62,21 @@ function animate() {
   }
 }
 
+function preload_no_math(gedankenate) {
+  let countDown = 1;
+  const onCount = () => {
+    if (--countDown === 0) {
+      gedankenate();
+    }
+  }
+  window.onresize = function(){ location.reload(); }
+  const fontloader = new FontLoader();
+  fontloader.load('./assets/Roboto_Regular.json', (fnt) => {
+    font = fnt;
+    document.body.style.visibility = 'visible';
+    onCount();
+  });
+}
 // Load fonts before running app
 function preload(gedankenate) {
   let countDown = 2;
@@ -125,6 +140,16 @@ function begin(gedankenFn) {
   });
 }
 
+function begin_no_math(gedankenFn, containerId) {
+  preload_no_math(() => {
+    gedanken = init(gedankenFn);
+    console.log(containerId);
+    gendankenElementIds.push(containerId);
+    gedankenMap.set(containerId, gedanken);
+    animate();
+  });
+}
+
 function beginMultiple(gedankenFns, elementIds) {
   preload(() => {
     for (let k = 0; k < gedankenFns.length; k++) {
@@ -162,4 +187,4 @@ function narrate(text, callback = () => {}) {
     }
   }, 50);
 }
-export { begin, beginMultiple, narrate };
+export { begin, begin_no_math, beginMultiple, narrate };
