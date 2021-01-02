@@ -1,5 +1,4 @@
-// import { FontLoader } from './node_modules/three/build/three.module.js';
-import { FontLoader } from 'https://unpkg.com/three/build/three.module.js';
+import { FontLoader } from './node_modules/three/build/three.module.js';
 let font;
 let gedanken;
 let gendankenElementIds = [];
@@ -140,15 +139,6 @@ function begin(gedankenFn) {
   });
 }
 
-function begin_no_math(gedankenFn, containerId) {
-  preload_no_math(() => {
-    gedanken = init(gedankenFn);
-    gendankenElementIds.push(containerId);
-    gedankenMap.set(containerId, gedanken);
-    animate();
-  });
-}
-
 function beginMultiple(gedankenFns, elementIds) {
   preload(() => {
     for (let k = 0; k < gedankenFns.length; k++) {
@@ -186,4 +176,4 @@ function narrate(text, callback = () => {}) {
     }
   }, 50);
 }
-export { begin, begin_no_math, beginMultiple, narrate };
+export { begin, beginMultiple, narrate };

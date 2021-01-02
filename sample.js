@@ -19,7 +19,7 @@ import {
   DoubleSide,
   Quaternion,
   Clock
-} from 'https://unpkg.com/three/build/three.module.js'; //'./node_modules/three/build/three.module.js';
+} from './node_modules/three/build/three.module.js';
 
 // bad for memory utilization
 // import * as THREE from 'three';

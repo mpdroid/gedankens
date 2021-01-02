@@ -1,15 +1,16 @@
 /* Demonstrates that time dilates */
-import {Vector3, Quaternion} from 'https://unpkg.com/three/build/three.module.js'; //'./node_modules/three/build/three.module.js';
+import {Vector3, Quaternion} from './node_modules/three/build/three.module.js';
 import * as GD from './gedanken.js';
 import { beginMultiple, begin, narrate } from './common.js';
 
 
 class TimeDilation extends GD.Gedanken {
 
-  introduction = "~ ".repeat(120) + "A light clock keeps time on the train. "
-  +"~ ".repeat(20) + "\r\nPlatform-Bob sees the train clock as running slower...";
   constructor(font) {
     super(font, 1.5, false);
+    this.introduction = "~ ".repeat(120) + "A light clock keeps time on the train. "
+    +"~ ".repeat(20) + "\r\nPlatform-Bob sees the train clock as running slower...";
+  
     this.createClock(this.trainFrameInTrainView, 0xABEBC6, GD.TRAIN_LENGTH / 4 + 0.1, Math.PI / 2);
     this.createClock(this.trainFrameInPlatformView, 0xABEBC6, GD.TRAIN_LENGTH / 4 + 0.1, Math.PI / 2);
   }

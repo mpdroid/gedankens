@@ -8,7 +8,7 @@ import {Scene, PerspectiveCamera,
   GridHelper,
   ShadowMaterial,
   Clock
-}  from 'https://unpkg.com/three/build/three.module.js'; //'./node_modules/three/build/three.module.js';
+}  from './node_modules/three/build/three.module.js';
 import {Lightning, LightBubble} from './lightning.js';
 
 let clock;
