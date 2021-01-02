@@ -8,10 +8,9 @@ import {
   Skeleton,
   Bone,
   Object3D,
-  Scene,
   Uint16BufferAttribute,
   Float32BufferAttribute
-} from './node_modules/three/build/three.module.js';
+} from 'https://unpkg.com/three/build/three.module.js';// './node_modules/three/build/three.module.js';
 class Bob extends Object3D {
   constructor(scaleFactor = 0.15, color = 0xff6347) {
     super();
