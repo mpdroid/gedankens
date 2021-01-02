@@ -1,5 +1,5 @@
 /* Introduces Special Relativity and the gedankens*/
-import {Vector3} from 'https://unpkg.com/three/build/three.module.js'; // './node_modules/three/build/three.module.js';
+import {Vector3} from './node_modules/three/build/three.module.js';
 import {Gedanken, TRAIN_LENGTH, TRAIN_COLOR, PLATFORM_COLOR, PLATFORM_LENGTH} from './gedanken.js';
 import { beginMultiple, narrate } from './common.js';
 
