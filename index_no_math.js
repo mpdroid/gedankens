@@ -1,6 +1,6 @@
 /* Introduces Special Relativity and the gedankens*/
-import {Vector3} from 'https://unpkg.com/three/build/three.module.js'; // './node_modules/three/build/three.module.js';
-import {Gedanken, TRAIN_LENGTH, TRAIN_COLOR, PLATFORM_COLOR, PLATFORM_LENGTH} from './gedanken.js';
+import { Vector3 } from 'https://unpkg.com/three/build/three.module.js'; // './node_modules/three/build/three.module.js';
+import { Gedanken, TRAIN_LENGTH, TRAIN_COLOR, PLATFORM_COLOR, PLATFORM_LENGTH } from './gedanken.js';
 import { beginMultiple, begin_no_math, narrate } from './common.js';
 
 function cameraMotion(omega, trainFrame, platformFrame, motionDirection = 1) {
@@ -42,13 +42,13 @@ class MeetTheBobs extends Gedanken {
   constructor(font) {
     super(font, 2, true, 'Intro');
     this.introduction = "Meet Bob. " +
-    "~ ".repeat(40) +
-    "Bob is waiting on a platform in the vacuum of space. " +
-    "~ ".repeat(30) +
-    "\r\nHis twin, also Bob, " + "~ ".repeat(20) + "is traveling on a train, " +
-    "~ ".repeat(20) +
-    "passing by at near light speed... "
-    ;
+      "~ ".repeat(40) +
+      "Bob is waiting on a platform in the vacuum of space. " +
+      "~ ".repeat(30) +
+      "\r\nHis twin, also Bob, " + "~ ".repeat(20) + "is traveling on a train, " +
+      "~ ".repeat(20) +
+      "passing by at near light speed... "
+      ;
 
     this.platformCamera.theta = Math.PI / 2;
     this.trainFrameInPlatformView.label.visible = true;
