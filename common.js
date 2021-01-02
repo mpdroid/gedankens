@@ -85,7 +85,7 @@ function preload(gedankenate) {
       gedankenate();
     }
   }
-  window.onresize = function(){ location.reload(); }
+  // window.onresize = function(){ location.reload(); }
   const fontloader = new FontLoader();
   fontloader.load('./assets/Roboto_Regular.json', (fnt) => {
     font = fnt;
