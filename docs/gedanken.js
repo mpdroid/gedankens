@@ -479,6 +479,13 @@ class Gedanken {
     v = 0.0025, cByv = 1.25
   ) {
     this.introduction = '';
+    this.updateLightSpeedFn = (event) => {
+      event.stopPropagation();
+      let cbyv = event.target.value;
+      document.getElementById('lightSpeedValue').innerText = cbyv;
+      this.updateLightSpeed(cbyv);
+    }
+  
     this.font = font;
     this.applyGamma = applyGamma;
     this.showLengths = showLengths;
@@ -636,12 +643,6 @@ class Gedanken {
   }
 
 
-  updateLightSpeedFn = (event) => {
-    event.stopPropagation();
-    let cbyv = event.target.value;
-    document.getElementById('lightSpeedValue').innerText = cbyv;
-    this.updateLightSpeed(cbyv);
-  }
 
   updateLightSpeed(cbyv) {
     this.updateC(cbyv);
