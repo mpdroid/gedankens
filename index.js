@@ -1,6 +1,6 @@
 /* Introduces Special Relativity and the gedankens*/
-import {Vector3} from './node_modules/three/build/three.module.js';
-import * as GD from './gedanken.js';
+import {Vector3} from 'https://unpkg.com/three/build/three.module.js'; // './node_modules/three/build/three.module.js';
+import {Gedanken, TRAIN_LENGTH, TRAIN_COLOR, PLATFORM_COLOR, PLATFORM_LENGTH} from './gedanken.js';
 import { beginMultiple, narrate } from './common.js';
 
 function cameraMotion(omega, trainFrame, platformFrame, motionDirection = 1) {
@@ -20,8 +20,8 @@ function cameraMotion(omega, trainFrame, platformFrame, motionDirection = 1) {
       this.targetY = .2 - .1 * Math.cos(this.theta);
     } else {
       this.position.x = platformFrame.position.x
-        - 1 * GD.TRAIN_LENGTH
-        + .5 * GD.TRAIN_LENGTH * Math.cos(this.theta);
+        - 1 * TRAIN_LENGTH
+        + .5 * TRAIN_LENGTH * Math.cos(this.theta);
       this.position.y = .2 - .1 * Math.cos(this.theta);
       this.lookAt(targetPosition);
     }
@@ -36,7 +36,7 @@ function cameraMotion(omega, trainFrame, platformFrame, motionDirection = 1) {
 }
 
 
-class MeetTheBobs extends GD.Gedanken {
+class MeetTheBobs extends Gedanken {
 
   introduction = "Meet Bob. " +
     "~ ".repeat(40) +
@@ -51,9 +51,9 @@ class MeetTheBobs extends GD.Gedanken {
     super(font, 2, true, 'Intro');
     this.platformCamera.theta = Math.PI / 2;
     this.trainFrameInPlatformView.label.visible = true;
-    this.createClock(this.platformFrameInPlatformView, GD.PLATFORM_COLOR, GD.TRAIN_LENGTH / 6 + 0.1, Math.PI / 2,
+    this.createClock(this.platformFrameInPlatformView, PLATFORM_COLOR, TRAIN_LENGTH / 6 + 0.1, Math.PI / 2,
       600);
-    this.createClock(this.trainFrameInPlatformView, GD.TRAIN_COLOR, GD.TRAIN_LENGTH / 6 + 0.1, Math.PI / 2,
+    this.createClock(this.trainFrameInPlatformView, TRAIN_COLOR, TRAIN_LENGTH / 6 + 0.1, Math.PI / 2,
       600, this.gamma);
   }
 
@@ -111,8 +111,8 @@ class MeetTheBobs extends GD.Gedanken {
     this.trainFrameInPlatformView.spaceTimeEvents = [];
 
     this.ticksToOrigin = Math.floor(this.maxDistancePlatformView / this.v);
-    const ticksToLightning = Math.floor(GD.TRAIN_LENGTH / 2 / this.v);
-    this.platformFrameInPlatformView.addEvent(GD.TRAIN_LENGTH / 1.5, 0, this.motionDirection * GD.TRAIN_LENGTH / 2, ticksToLightning, 1,
+    const ticksToLightning = Math.floor(TRAIN_LENGTH / 2 / this.v);
+    this.platformFrameInPlatformView.addEvent(TRAIN_LENGTH / 1.5, 0, this.motionDirection * TRAIN_LENGTH / 2, ticksToLightning, 1,
       (frame, x, y, z) => {
         frame.dropLightning(
           new Vector3(x, y, z), this.c, 0x00CCFF);

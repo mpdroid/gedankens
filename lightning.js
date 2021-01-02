@@ -5,7 +5,7 @@ import {
   Vector3, ArrowHelper, ShapeBufferGeometry, MeshBasicMaterial, Mesh, Object3D,
   DoubleSide,SphereBufferGeometry, BufferGeometry, PointsMaterial, Float32BufferAttribute,
   Points, Box3
-} from './node_modules/three/build/three.module.js';
+} from 'https://unpkg.com/three/build/three.module.js'; //'./node_modules/three/build/three.module.js';
 import { LightningStrike } from './node_modules/three/examples/jsm/geometries/LightningStrike.js';
 
 class DoubleArrow extends Object3D {
