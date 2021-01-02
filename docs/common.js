@@ -143,7 +143,6 @@ function begin(gedankenFn) {
 function begin_no_math(gedankenFn, containerId) {
   preload_no_math(() => {
     gedanken = init(gedankenFn);
-    console.log(containerId);
     gendankenElementIds.push(containerId);
     gedankenMap.set(containerId, gedanken);
     animate();

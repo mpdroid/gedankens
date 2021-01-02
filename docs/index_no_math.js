@@ -131,7 +131,9 @@ import { beginMultiple, begin_no_math, narrate } from './common.js';
 //   }
 // }
 alert('running js');
+console.log('rinning js');
+document.body.style.visibility = 'visible';
 
-// begin_no_math(MeetTheBobs, 'platformIntro');
+begin_no_math(MeetTheBobs, 'platformIntro');
 // beginMultiple([MeetTheBobs], ['platformIntro']);
 
