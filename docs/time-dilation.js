@@ -1,5 +1,5 @@
 /* Demonstrates that time dilates */
-import {Vector3, Quaternion} from './node_modules/three/build/three.module.js';
+import {Vector3, Quaternion} from 'https://unpkg.com/three/build/three.module.js'; //'./node_modules/three/build/three.module.js';
 import * as GD from './gedanken.js';
 import { beginMultiple, begin, narrate } from './common.js';
 

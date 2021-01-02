@@ -34,4 +34,4 @@ rsync -av assets/ docs/assets/
 
 echo "-----------------------------------------------"
 echo "Finished building Gedankens"
-#git subtree push --prefix dist origin gh-pages
+#git subtree push --prefix docs origin gh-pages

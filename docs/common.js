@@ -1,4 +1,5 @@
-import { FontLoader } from './node_modules/three/build/three.module.js';
+// import { FontLoader } from './node_modules/three/build/three.module.js';
+import { FontLoader } from 'https://unpkg.com/three/build/three.module.js';
 let font;
 let gedanken;
 let gendankenElementIds = [];
@@ -81,11 +82,11 @@ function preload(gedankenate) {
   lxconfigscript.type = "text/x-mathjax-config";
   lxconfigscript[(window.opera ? "innerHTML" : "text")] =
     "MathJax.Hub.Config({\n" +
-    " startup: { \n" +
-    "   ready: () => { \n" +
-    " MathJax.startup.defaultReady();\n" +
-    " }\n" +
-    " },\n" +
+    // " startup: { \n" +
+    // "   ready: () => { \n" +
+    // " MathJax.startup.defaultReady();\n" +
+    // " }\n" +
+    // " },\n" +
     // " MatchWebFonts: {\n" \n" ++
     // " matchFor: {\n" +
     // " 'HTML-CSS': true,\n" +
@@ -111,7 +112,7 @@ function preload(gedankenate) {
   document.head.appendChild(lxconfigscript);
   addScript(MATHJAX_JS, true, () => {
     document.body.style.visibility = 'visible';
-  onCount();
+    onCount();
   });
 
 }

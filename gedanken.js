@@ -16,7 +16,8 @@ import {Scene, PerspectiveCamera,
   DoubleSide,FrontSide, BackSide,
   MeshBasicMaterial,
   Color,
-}  from './node_modules/three/build/three.module.js';
+// }  from './node_modules/three/build/three.module.js';
+}  from 'https://unpkg.com/three/build/three.module.js';
 import { Bob } from './bob.js';
 import { Lightning, LightBubble, LightRay, Arrow, DoubleArrow, ParticleCloud, Arc } from './lightning.js';
 

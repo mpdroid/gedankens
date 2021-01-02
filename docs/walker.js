@@ -9,7 +9,7 @@ import {
   GridHelper,
   ShadowMaterial,
   Clock
-} from './node_modules/three/build/three.module.js';
+} from 'https://unpkg.com/three/build/three.module.js'; //'./node_modules/three/build/three.module.js';
 import { Bob } from './bob.js';
 
 
