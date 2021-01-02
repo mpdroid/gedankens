@@ -64,6 +64,7 @@ function animate() {
 
 function preload_no_math(gedankenate) {
   let countDown = 1;
+  document.body.style.visibility = 'visible';
   const onCount = () => {
     if (--countDown === 0) {
       gedankenate();
@@ -73,7 +74,6 @@ function preload_no_math(gedankenate) {
   const fontloader = new FontLoader();
   fontloader.load('./assets/Roboto_Regular.json', (fnt) => {
     font = fnt;
-    document.body.style.visibility = 'visible';
     onCount();
   });
 }
