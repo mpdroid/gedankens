@@ -9,13 +9,13 @@ import { begin, beginMultiple, narrate } from './common.js';
 
 class Lorentz extends GD.Gedanken {
 
-  introduction = "~ ".repeat(20) + "As the Bobs pass each other, "
-    + "~ ".repeat(20) + "there is absolute chaos. "
-    + "~ ".repeat(40) + "\r\nLengths contract, time dilates, "
-    + "~ ".repeat(40) + "location and time of events do not line up..."
 
   constructor(font) {
     super(font, 1.5, true, 'Irf', false);
+    this.introduction = "~ ".repeat(20) + "As the Bobs pass each other, "
+    + "~ ".repeat(20) + "there is absolute chaos. "
+    + "~ ".repeat(40) + "\r\nLengths contract, time dilates, "
+    + "~ ".repeat(40) + "location and time of events do not line up..."
     this.createClock(this.trainFrameInTrainView, GD.TRAIN_COLOR, GD.TRAIN_LENGTH / 4 + 0.1, Math.PI / 2, this.maxDistanceTrainView / 2, 1, this.v, true);
     this.createClock(this.platformFrameInPlatformView, GD.PLATFORM_COLOR, GD.TRAIN_LENGTH / 4 + 0.1, Math.PI / 2, this.maxDistancePlatformView / 2, 1, this.v, true);
     this.createClock(this.trainFrameInPlatformView, GD.TRAIN_COLOR, GD.TRAIN_LENGTH / 4 + 0.1, Math.PI / 2, this.maxDistanceTrainView / 2, this.gamma, this.v, true);

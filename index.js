@@ -38,7 +38,9 @@ function cameraMotion(omega, trainFrame, platformFrame, motionDirection = 1) {
 
 class MeetTheBobs extends Gedanken {
 
-  introduction = "Meet Bob. " +
+  constructor(font) {
+    super(font, 2, true, 'Intro');
+    this.introduction = "Meet Bob. " +
     "~ ".repeat(40) +
     "Bob is waiting on a platform in the vacuum of space. " +
     "~ ".repeat(30) +
@@ -47,8 +49,7 @@ class MeetTheBobs extends Gedanken {
     "passing by at near light speed... "
     ;
 
-  constructor(font) {
-    super(font, 2, true, 'Intro');
+
     this.platformCamera.theta = Math.PI / 2;
     this.trainFrameInPlatformView.label.visible = true;
     this.createClock(this.platformFrameInPlatformView, PLATFORM_COLOR, TRAIN_LENGTH / 6 + 0.1, Math.PI / 2,

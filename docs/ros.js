@@ -5,12 +5,12 @@ import { begin, narrate } from './common.js';
 
 class TimeIsRelative extends GD.Gedanken {
 
-  introduction = "~ ".repeat(120) + "Just as the Bobs pass each other, " +
-    "~ ".repeat(40) +
-    "lightning strikes both ends of the platform... ";
 
   constructor(font, applyGamma = false, showLengths = false) {
     super(font, 1.5, applyGamma, 'Irf', showLengths);
+    this.introduction = "~ ".repeat(120) + "Just as the Bobs pass each other, " +
+    "~ ".repeat(40) +
+    "lightning strikes both ends of the platform... ";
     this.trainScene.ground.visible = false;
     this.platformScene.ground.visible = false;
     this.updateC(2);

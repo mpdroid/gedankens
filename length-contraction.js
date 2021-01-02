@@ -7,14 +7,12 @@ import { begin, narrate } from './common.js';
 
 class LengthContraction extends GD.Gedanken {
 
-  introduction = "~ ".repeat(120) + "The train makes one complete pass across Platform-Bob. "
-  +"~ ".repeat(40) + "\r\nPlatform-Bob observes the train to be shorter than its proper length...";
 
-  trainTimeLabel;
-  platformTimeLabel;
   constructor(font) {
     super(font, 1.5, true, 'Irf', true, 2);
-    this.createClock(this.trainFrameInTrainView, GD.TRAIN_COLOR, GD.TRAIN_LENGTH / 4 + 0.1, Math.PI / 2, GD.TRAIN_LENGTH / 2, 1, this.c, false);
+    this.introduction = "~ ".repeat(120) + "The train makes one complete pass across Platform-Bob. "
+    +"~ ".repeat(40) + "\r\nPlatform-Bob observes the train to be shorter than its proper length...";
+      this.createClock(this.trainFrameInTrainView, GD.TRAIN_COLOR, GD.TRAIN_LENGTH / 4 + 0.1, Math.PI / 2, GD.TRAIN_LENGTH / 2, 1, this.c, false);
     this.createClock(this.platformFrameInPlatformView, GD.PLATFORM_COLOR, GD.TRAIN_LENGTH / 4 + 0.1, Math.PI / 2, GD.TRAIN_LENGTH / 2, 1, this.c, false);
 
   }

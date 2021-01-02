@@ -5,14 +5,14 @@ import { begin, narrate } from './common.js';
 // Demostrates why speed of light is constant in all reference frames
 class ConstantC extends GD.Gedanken {
 
-  introduction = "~ ".repeat(120) + "Just as the Bobs pass each other, " +
+
+  constructor(font) {
+    super(font, 1.5);
+    this.introduction = "~ ".repeat(120) + "Just as the Bobs pass each other, " +
     "~ ".repeat(40) +
     "lightning strikes the center of the platform, " +
     "~ ".repeat(30) +
     "kicking up a cloud of dust...";
-
-  constructor(font) {
-    super(font, 1.5);
   }
 
   initialize() {
