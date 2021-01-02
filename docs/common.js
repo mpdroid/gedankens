@@ -67,15 +67,15 @@ function preload_no_math(gedankenate) {
   document.body.style.visibility = 'visible';
   const onCount = () => {
     if (--countDown === 0) {
-      gedankenate();
+      // gedankenate();
     }
   }
-  window.onresize = function(){ location.reload(); }
-  const fontloader = new FontLoader();
-  fontloader.load('./assets/Roboto_Regular.json', (fnt) => {
-    font = fnt;
-    onCount();
-  });
+  //window.onresize = function(){ location.reload(); }
+  // const fontloader = new FontLoader();
+  // fontloader.load('./assets/Roboto_Regular.json', (fnt) => {
+  //   font = fnt;
+  //   onCount();
+  // });
 }
 // Load fonts before running app
 function preload(gedankenate) {
