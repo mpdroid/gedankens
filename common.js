@@ -71,11 +71,11 @@ function preload_no_math(gedankenate) {
     }
   }
   window.onresize = function(){ location.reload(); }
-  // const fontloader = new FontLoader();
-  // fontloader.load('./assets/Roboto_Regular.json', (fnt) => {
-  //   font = fnt;
-  //   onCount();
-  // });
+  const fontloader = new FontLoader();
+  fontloader.load('./assets/Roboto_Regular.json', (fnt) => {
+    font = fnt;
+    onCount();
+  });
 }
 // Load fonts before running app
 function preload(gedankenate) {
