@@ -130,6 +130,7 @@ class MeetTheBobs extends Gedanken {
     });
   }
 }
+alert('running js');
 
 begin_no_math(MeetTheBobs, 'platformIntro');
 // beginMultiple([MeetTheBobs], ['platformIntro']);
