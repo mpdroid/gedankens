@@ -1,6 +1,6 @@
 
 /* Shows how lorentz transformations work */
-import { Vector3 } from 'https://unpkg.com/three/build/three.module.js'; //'./node_modules/three/build/three.module.js';
+import { Vector3 } from './node_modules/three/build/three.module.js';
 import * as GD from './gedanken.js';
 import { begin, beginMultiple, narrate } from './common.js';
 

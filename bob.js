@@ -10,7 +10,7 @@ import {
   Object3D,
   Uint16BufferAttribute,
   Float32BufferAttribute
-} from 'https://unpkg.com/three/build/three.module.js';// './node_modules/three/build/three.module.js';
+} from './node_modules/three/build/three.module.js';
 class Bob extends Object3D {
   constructor(scaleFactor = 0.15, color = 0xff6347) {
     super();
