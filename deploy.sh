@@ -13,6 +13,7 @@ echo "committing \"${commit_message}\""
 git commit -m"${commit_message}"
 git pull -r
 git push
-git subtree push --prefix docs origin gh-pages 
+# git subtree push --prefix docs origin gh-pages 
+git push origin `git subtree split --prefix docs release`:gh-pages --force
 echo "-----------------------------------------------"
 echo "Finished deploying Gedankens "
