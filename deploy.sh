@@ -7,6 +7,7 @@ if [ ! -z "${1}" ]; then
 fi
 echo $commit_message
 git checkout -B release
+git pull -r
 
 ./build.sh
 git add .
