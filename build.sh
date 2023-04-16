@@ -27,9 +27,9 @@ for folder in "${folders[@]}"; do
   done
 
 done
-
+mkdir docs/node_modules/three
 rsync -av node_modules/three/ docs/node_modules/three/
-
+mkdir docs/assets
 rsync -av assets/ docs/assets/
 
 echo "-----------------------------------------------"
